@@ -1,0 +1,16 @@
+Index: app/src/main/java/legear/colm/ulalarmclock/AddAlarm.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/legear/colm/ulalarmclock/AddAlarm.java	(revision )
++++ app/src/main/java/legear/colm/ulalarmclock/AddAlarm.java	(revision )
+@@ -34,7 +34,7 @@
+     private void showToast(){
+         String text = "Hour: " + hour + "   Minute: " + minute;
+         Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
+-        toast.show();
++        //toast.show();
+         finish();
+ 
+ 

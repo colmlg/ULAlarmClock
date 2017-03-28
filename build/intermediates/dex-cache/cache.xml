@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\Colm\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="C:\Users\Colm\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_23a42ba02d1571fcc2e9415ab1f621a622f9fc14\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Colm\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="89abd450d0c920816552a90920fa1ae78d690467">
+        <dex dex="C:\Users\Colm\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_6304cb36f8f1267c4ec6c9c0ac34e463cd2a7bc1\classes.dex" />
+    </item>
+
+</items>
