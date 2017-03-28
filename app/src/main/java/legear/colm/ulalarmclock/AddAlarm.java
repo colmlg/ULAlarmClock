@@ -1,11 +1,12 @@
 package legear.colm.ulalarmclock;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 public class AddAlarm extends AppCompatActivity {
     private int hour;
@@ -25,19 +26,14 @@ public class AddAlarm extends AppCompatActivity {
                 TimePicker picker = (TimePicker) findViewById(R.id.timePicker2);
                 hour = picker.getHour();
                 minute = picker.getMinute();
-                showToast();
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("hour",hour);
+                returnIntent.putExtra("minute",minute);
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
 
             }
         });
     }
 
-    private void showToast(){
-        String text = "Hour: " + hour + "   Minute: " + minute;
-        Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
-        //toast.show();
-        finish();
-
-
-
-    }
 }

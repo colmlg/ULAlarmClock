@@ -1,5 +1,7 @@
 package legear.colm.ulalarmclock;
 
+import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,8 +11,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
+
+    ArrayList<String> listItems = new ArrayList<String>();
+    ArrayAdapter<String> adapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +37,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent addAlarm = new Intent(view.getContext(), AddAlarm.class);
-                startActivity(addAlarm);
+                startActivityForResult(addAlarm, 1);
             }
         });
+
+        ListView alarmListView = (ListView) findViewById(R.id.alarmList);
+        adapter = new ArrayAdapter<String>(alarmListView.getContext(), R.id.alarmList);
+        alarmListView.setAdapter(adapter);
     }
 
     @Override
@@ -50,6 +67,26 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                int hour =data.getIntExtra("hour",1);
+                int minute = data.getIntExtra("minute",2);
+                Calendar alarmTime = new GregorianCalendar();
+                alarmTime.set(Calendar.HOUR_OF_DAY, hour);
+                alarmTime.set(Calendar.MINUTE, minute);
+                Alarm alarm = new Alarm(alarmTime);
+                String alarmTimeString = hour + ":" + minute;
+                adapter.add(alarmTimeString);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }//onActivityResult
 
 
 }
