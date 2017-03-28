@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,8 +21,10 @@ import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<String> listItems = new ArrayList<String>();
-    ArrayAdapter<String> adapter;
+    ArrayList<Alarm> listItems = new ArrayList<Alarm>();
+    ArrayAdapter<Alarm> adapter;
+    DatabaseHandler db;
+    int i = 0;
 
 
 
@@ -31,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        db = new DatabaseHandler(this);
+
+
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -42,8 +51,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ListView alarmListView = (ListView) findViewById(R.id.alarmList);
-        adapter = new ArrayAdapter<String>(alarmListView.getContext(), R.id.alarmList);
+        adapter = new ArrayAdapter<Alarm>(this, android.R.layout.simple_list_item_1,listItems);
         alarmListView.setAdapter(adapter);
+        listItems = db.getAllAlarms();
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -75,12 +86,12 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 int hour =data.getIntExtra("hour",1);
                 int minute = data.getIntExtra("minute",2);
-                Calendar alarmTime = new GregorianCalendar();
-                alarmTime.set(Calendar.HOUR_OF_DAY, hour);
-                alarmTime.set(Calendar.MINUTE, minute);
-                Alarm alarm = new Alarm(alarmTime);
-                String alarmTimeString = hour + ":" + minute;
-                adapter.add(alarmTimeString);
+                Alarm alarm = new Alarm();
+                alarm.setTime(hour, minute);
+                int [] repeatDays = {0,0,0,0,0,0,0};
+                db.addAlarm(alarm, repeatDays);
+                listItems = db.getAllAlarms();
+                adapter.notifyDataSetChanged();
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
