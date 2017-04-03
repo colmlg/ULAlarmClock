@@ -1,5 +1,6 @@
 package legear.colm.ulalarmclock;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -110,6 +111,34 @@ public class Alarm {
     @Override
     public String toString()
     {
-        return alarmTime.get(Calendar.HOUR_OF_DAY) + ":" + alarmTime.get(Calendar.MINUTE);
+
+        int hour = alarmTime.get(Calendar.HOUR_OF_DAY);
+        String hourString = "" + hour;
+        if(hour / 10 == 0)
+            hourString = "0" + hour;
+
+        int minute = alarmTime.get(Calendar.MINUTE);
+        String minuteString = "" + minute;
+        if(minute / 10 == 0)
+            minuteString = "0" + minute;
+
+        String alarmString =  hourString + ":" + minuteString + "\n" + "Repeat: ";
+        String [] daysOfWeek = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+
+        boolean repeats = false;
+
+        for(int i = 0; i < repeatDays.length; i++)
+        {
+            if(repeatDays[i] == 1){
+                alarmString += " " + daysOfWeek[i];
+                repeats = true;
+            }
+
+        }
+
+        if(!repeats)
+            alarmString += "None";
+
+        return alarmString;
     }
 }

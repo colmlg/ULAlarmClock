@@ -20,7 +20,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "alarmDB";
+    private static final String DATABASE_NAME = "alarms.db";
 
     // table name
     private static final String TABLE_ALARMS = "alarms";
@@ -47,7 +47,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_ALARMS_TABLE = "CREATE TABLE " + TABLE_ALARMS + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TIME + " TIME" + ")";
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TIME + " VARCHAR(255)" + ")";
         db.execSQL(CREATE_ALARMS_TABLE);
 
         String CREATE_ALARMREPEATDAYS_TABLE = "CREATE TABLE " + TABLE_ALARMREPEATDAYS + "("
@@ -69,14 +69,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }**/
 
-    public void addAlarm(Alarm alarm, int [] repeatDays)
+    public void addAlarm(Alarm alarm)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_TIME, alarm.getTime());
         // Inserting Row
-        long id = db.insert(TABLE_ALARMS, null, values);
+        db.insert(TABLE_ALARMS, null, values);
 
+        int [] repeatDays = alarm.getRepeatDays();
         ContentValues repeatValues = new ContentValues();
         repeatValues.put(KEY_MONDAY, repeatDays[0] == 1 ? 1 : 0);
         repeatValues.put(KEY_TUESDAY, repeatDays[1] == 1 ? 1 : 0);
@@ -93,7 +94,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<Alarm> getAllAlarms() {
         ArrayList<Alarm> alarmList = new ArrayList<Alarm>();
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_ALARMS;
+        String selectQuery = "SELECT  * FROM " + TABLE_ALARMS + " JOIN " + TABLE_ALARMREPEATDAYS + " ON " + TABLE_ALARMS + ".id = " + TABLE_ALARMREPEATDAYS + ".id";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -104,10 +105,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Alarm alarm = new Alarm();
                 alarm.setId(Integer.parseInt(cursor.getString(0)));
                 alarm.setTime(cursor.getString(1));
-                /*repeatDays = new int[]{Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)),
-                                        Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)) };
+                repeatDays = new int[]{Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)),
+                                        Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9)) };
                 alarm.setRepeatDays(repeatDays);
-                */
+
 
 
                 // Adding contact to list
@@ -121,7 +122,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public Alarm getAlarm(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT  * FROM " + TABLE_ALARMS + "NATURAL JOIN " + TABLE_ALARMREPEATDAYS + " WHERE id = " + id;
+        String selectQuery = "SELECT  * FROM " + TABLE_ALARMS + " JOIN " + TABLE_ALARMREPEATDAYS + " ON " + TABLE_ALARMS + ".id = " + TABLE_ALARMREPEATDAYS + ".id WHERE " + TABLE_ALARMS +".id = " + id;
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null)
             cursor.moveToFirst();
