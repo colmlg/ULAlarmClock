@@ -7,16 +7,32 @@
     tools:context="legear.colm.ulalarmclock.AddAlarm">
 
     <RelativeLayout
-        android:layout_width="368dp"
-        android:layout_height="495dp"
-        tools:layout_editor_absoluteX="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="8dp">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:elevation="3dp"
+            android:text="OK"
+            tools:layout_conversion_absoluteHeight="47dp"
+            tools:layout_conversion_absoluteWidth="384dp"
+            tools:layout_conversion_absoluteX="0dp"
+            tools:layout_conversion_absoluteY="383dp"
+            tools:layout_editor_absoluteX="148dp"
+            tools:layout_editor_absoluteY="449dp" />
 
         <TimePicker
             android:id="@+id/timePicker2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:headerBackground="@color/colorPrimary"
             android:numbersSelectorColor="@color/colorPrimary"
             tools:layout_conversion_absoluteHeight="336dp"
@@ -26,85 +42,71 @@
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="368dp"
-            android:layout_height="33dp"
-            android:text="OK"
-            tools:layout_conversion_absoluteHeight="47dp"
-            tools:layout_conversion_absoluteWidth="384dp"
-            tools:layout_conversion_absoluteX="0dp"
-            tools:layout_conversion_absoluteY="383dp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="391dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignEnd="@+id/checkBoxSun" />
-
         <CheckBox
             android:id="@+id/checkBoxMon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mon"
-            android:textSize="12sp"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/timePicker2"
-            android:layout_alignParentStart="true" />
+            android:text="Mon"
+            android:textSize="11sp" />
 
         <CheckBox
             android:id="@+id/checkBoxTue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tue"
-            android:textSize="12sp"
             android:layout_alignBaseline="@+id/checkBoxWed"
             android:layout_alignBottom="@+id/checkBoxWed"
-            android:layout_toEndOf="@+id/checkBoxMon" />
+            android:layout_toEndOf="@+id/checkBoxMon"
+            android:text="Tue"
+            android:textSize="11sp" />
 
         <CheckBox
             android:id="@+id/checkBoxWed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wed"
-            android:textSize="12sp"
             android:layout_below="@+id/timePicker2"
-            android:layout_toEndOf="@+id/checkBoxTue" />
+            android:layout_toEndOf="@+id/checkBoxTue"
+            android:text="Wed"
+            android:textSize="11sp" />
 
         <CheckBox
             android:id="@+id/checkBoxThu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thu"
-            android:textSize="12sp"
             android:layout_alignBaseline="@+id/checkBoxWed"
             android:layout_alignBottom="@+id/checkBoxWed"
-            android:layout_toEndOf="@+id/checkBoxWed" />
+            android:layout_toEndOf="@+id/checkBoxWed"
+            android:text="Thu"
+            android:textSize="11sp" />
 
         <CheckBox
             android:id="@+id/checkBoxFri"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fri"
-            android:textSize="12sp"
             android:layout_below="@+id/timePicker2"
-            android:layout_toEndOf="@+id/checkBoxThu" />
+            android:layout_toEndOf="@+id/checkBoxThu"
+            android:text="Fri"
+            android:textSize="11sp" />
 
         <CheckBox
             android:id="@+id/checkBoxSat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sat"
-            android:textSize="12sp"
             android:layout_below="@+id/timePicker2"
-            android:layout_toEndOf="@+id/checkBoxFri" />
+            android:layout_toEndOf="@+id/checkBoxFri"
+            android:text="Sat"
+            android:textSize="11sp" />
 
         <CheckBox
             android:id="@+id/checkBoxSun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sun"
-            android:textSize="12sp"
             android:layout_alignBaseline="@+id/checkBoxSat"
             android:layout_alignBottom="@+id/checkBoxSat"
-            android:layout_toEndOf="@+id/checkBoxSat" />
+            android:layout_toEndOf="@+id/checkBoxSat"
+            android:text="Sun"
+            android:textSize="11sp" />
 
     </RelativeLayout>
 

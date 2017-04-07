@@ -77,8 +77,11 @@ public class AddAlarm extends AppCompatActivity {
                 alarm.setTime(hour, minute);
                 alarm.setRepeatDays(repeatDays);
                 db.addAlarm(alarm);
+                alarm.setId(db.getLastInsertId());
 
                 Intent returnIntent = new Intent();
+                returnIntent.putExtra("id", alarm.getId());
+
                 setResult(Activity.RESULT_OK,returnIntent);
                 finish();
 
@@ -87,6 +90,8 @@ public class AddAlarm extends AppCompatActivity {
 
             }
         );
+
+
     }
 
 }

@@ -17,7 +17,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
 
     // Database Name
     private static final String DATABASE_NAME = "alarms.db";
@@ -29,6 +29,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_TIME = "time";
+    private static final String KEY_ACTIVE = "active";
+
+
     private static final String KEY_MONDAY = "monday";
     private static final String KEY_TUESDAY = "tuesday";
     private static final String KEY_WEDNESDAY = "wednesday";
@@ -47,7 +50,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_ALARMS_TABLE = "CREATE TABLE " + TABLE_ALARMS + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TIME + " VARCHAR(255)" + ")";
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TIME + " TEXT," + KEY_ACTIVE + " BOOLEAN" + ")";
         db.execSQL(CREATE_ALARMS_TABLE);
 
         String CREATE_ALARMREPEATDAYS_TABLE = "CREATE TABLE " + TABLE_ALARMREPEATDAYS + "("
@@ -74,6 +77,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_TIME, alarm.getTime());
+        values.put(KEY_ACTIVE, alarm.isEnabled() ? 1 : 0);
         // Inserting Row
         db.insert(TABLE_ALARMS, null, values);
 
@@ -91,6 +95,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
+    public void toggleAlarmActive(int id, boolean enabled)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_ACTIVE, enabled ? 1 : 0);
+        db.update(TABLE_ALARMS, values, "id=" + id, null);
+        db.close();
+
+    }
+
+    public int getLastInsertId()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT MAX(" + KEY_ID + ") FROM " + TABLE_ALARMS;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        return cursor.getInt(0);
+    }
+
+
+
     public ArrayList<Alarm> getAllAlarms() {
         ArrayList<Alarm> alarmList = new ArrayList<Alarm>();
         // Select All Query
@@ -105,8 +130,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Alarm alarm = new Alarm();
                 alarm.setId(Integer.parseInt(cursor.getString(0)));
                 alarm.setTime(cursor.getString(1));
-                repeatDays = new int[]{Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)),
-                                        Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9)) };
+                alarm.setEnabled(cursor.getInt(2) == 1);
+
+                repeatDays = new int[]{Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)),
+                                       Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9)), Integer.parseInt(cursor.getString(10)) };
                 alarm.setRepeatDays(repeatDays);
 
 
@@ -130,8 +157,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Alarm alarm = new Alarm();
         alarm.setId(Integer.parseInt(cursor.getString(0)));
         alarm.setTime(cursor.getString(1));
-        int [] repeatDays = {Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)),
-                Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)) };
+        alarm.setEnabled(cursor.getInt(2) == 1);
+
+        int []  repeatDays = new int[]{Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)),
+                Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9)), Integer.parseInt(cursor.getString(10)) };
         alarm.setRepeatDays(repeatDays);
         // return alarm
         return alarm;
