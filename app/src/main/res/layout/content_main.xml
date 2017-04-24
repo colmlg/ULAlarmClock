@@ -23,7 +23,9 @@
             android:footerDividersEnabled="true"
             android:headerDividersEnabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="8dp" />
+            tools:layout_editor_absoluteX="8dp"
+            android:paddingBottom="26dp"
+            android:clipToPadding="false" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

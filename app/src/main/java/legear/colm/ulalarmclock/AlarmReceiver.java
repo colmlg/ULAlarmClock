@@ -19,9 +19,12 @@ public class AlarmReceiver extends BroadcastReceiver {
         int id = intent.getIntExtra("id",0);
         Toast toast = Toast.makeText(context,"Alarm " + id + " received!", Toast.LENGTH_LONG);
         toast.show();
+        DatabaseHandler db = new DatabaseHandler(context);
 
-        Intent intent1 = new Intent(context, AddAlarm.class);
-        context.startService(intent1);
+        if(!db.getAlarm(id).isRepeating())
+             db.toggleAlarmActive(id, false);
+
+
     };
 
 

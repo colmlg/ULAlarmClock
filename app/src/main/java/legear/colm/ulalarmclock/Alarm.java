@@ -90,6 +90,11 @@ public class Alarm {
         return  hourString + ":" + minuteString;
     }
 
+    public void setTimeInMilis(long timeInMilis)
+    {
+        alarmTime.setTimeInMillis(timeInMilis);
+    }
+
     public void setTime(String time)
     {
         String [] timeSplit = time.split(":");

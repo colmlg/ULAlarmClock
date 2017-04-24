@@ -1,34 +1,18 @@
 package legear.colm.ulalarmclock;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.DialogFragment;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
-import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import static android.widget.Toast.LENGTH_LONG;
 
@@ -40,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private int i = 0;
 
     private ListView alarmListView;
-    private AlarmManager alarmManager;
-    private PendingIntent alarmIntent;
+
+
 
 
 
@@ -58,8 +42,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent addAlarm = new Intent(view.getContext(), AddAlarm.class);
-                startActivityForResult(addAlarm, 1);
+                addAlarm();
             }
         });
 
@@ -72,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
         alarmListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        //Set up the alarm manager
-        alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+
 
 
 
@@ -109,41 +91,10 @@ public class MainActivity extends AppCompatActivity {
         int id;
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
-                id = data.getIntExtra("id", 0);
-                adapter.add(db.getAlarm(id));
-
-                Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
-                intent.putExtra("id", id);
-                alarmIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                Calendar currentTime = new GregorianCalendar();
-                Alarm currentAlarm = db.getAlarm(id);
-
-                //If the alarm is to be set for before the current time, schedule it to start tomorrow
-                if((currentTime.get(Calendar.HOUR_OF_DAY) > currentAlarm.getCalendar().get(Calendar.HOUR_OF_DAY)) ||
-                        (currentTime.get(Calendar.HOUR_OF_DAY) == currentAlarm.getCalendar().get(Calendar.HOUR_OF_DAY) && currentTime.get(Calendar.MINUTE) > currentAlarm.getCalendar().get(Calendar.MINUTE)))
-                {
-                    currentAlarm.getCalendar().add(Calendar.DAY_OF_YEAR, 1);
-                }
-
-                if(!currentAlarm.isRepeating())
-                {
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, currentAlarm.getCalendar().getTimeInMillis(), alarmIntent);
-                }
-
-                else {
-                    int [] repeatDays = currentAlarm.getRepeatDays();
-                    for(int i = 0; i < repeatDays.length; i++)
-                    {
-                        if(repeatDays[i] == 1)
-                        {
-                            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, AlarmManager.INTERVAL_DAY * 7, currentAlarm.getCalendar().getTimeInMillis(), alarmIntent);
-                        }
-
-                        currentAlarm.getCalendar().add(Calendar.DAY_OF_YEAR, 1);
-                    }
-                }
-
-
+                listAlarms = db.getAllAlarms();
+                adapter = new AlarmAdapter(this,listAlarms);
+                alarmListView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 Toast toast = Toast.makeText(getApplicationContext(), "Toasty NOT!", LENGTH_LONG);
@@ -151,6 +102,21 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }//onActivityResult
+
+
+    private void addAlarm()
+    {
+        Intent addAlarm = new Intent(getApplicationContext(), CreateAlarm.class);
+        startActivityForResult(addAlarm, 1);
+    }
+
+    public void updateListView()
+    {
+        listAlarms = db.getAllAlarms();
+        adapter = new AlarmAdapter(this,listAlarms);
+        alarmListView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
 
 
 

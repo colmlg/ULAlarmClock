@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddAlarm"></activity>
+        <activity android:name=".CreateAlarm"></activity>
         <receiver android:name=".AlarmReceiver" >
         </receiver>
     </application>

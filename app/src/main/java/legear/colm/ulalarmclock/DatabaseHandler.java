@@ -17,7 +17,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     // Database Name
     private static final String DATABASE_NAME = "alarms.db";
@@ -112,6 +112,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
         return cursor.getInt(0);
+    }
+
+    public void updateAlarm(Alarm alarm)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String updateAlarmTable = "UPDATE " + TABLE_ALARMS + " SET " + KEY_TIME + " = '" + alarm.getTime() + "', " + KEY_ACTIVE + " = '" + (alarm.isEnabled() ? 1 : 0) + "' WHERE " + KEY_ID + " = '" + alarm.getId() + "'";
+        db.execSQL(updateAlarmTable);
+        int [] repeatDays = alarm.getRepeatDays();
+        String updateRepeatTable = "UPDATE " + TABLE_ALARMREPEATDAYS + " SET " + KEY_MONDAY + " = "  + (repeatDays[0] == 1 ? 1 : 0) + ", " + KEY_TUESDAY + " = "  + (repeatDays[1] == 1 ? 1 : 0) + ", "
+                + KEY_WEDNESDAY + " = "  + (repeatDays[2] == 1 ? 1 : 0) + ", " + KEY_THURSDAY + " = "  + (repeatDays[3] == 1 ? 1 : 0) + ", " + KEY_FRIDAY + " = "  + (repeatDays[4] == 1 ? 1 : 0) + ", " +
+                KEY_SATURDAY+ " = "  + (repeatDays[5] == 1 ? 1 : 0) + ", " + KEY_SUNDAY + " = "  + (repeatDays[1] == 1 ? 1 : 0) + " WHERE " + KEY_ID + " = " + alarm.getId();
+        db.execSQL(updateRepeatTable);
+        db.close();
+    }
+
+    public void deleteAlarm(int id)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_ALARMS, "id = " + id, null);
+        db.delete(TABLE_ALARMREPEATDAYS, "id = " + id, null);
+
     }
 
 
