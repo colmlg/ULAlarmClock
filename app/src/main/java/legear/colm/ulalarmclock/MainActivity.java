@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         int id;
-        if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
                 listAlarms = db.getAllAlarms();
                 adapter = new AlarmAdapter(this,listAlarms);
@@ -97,10 +96,10 @@ public class MainActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Toasty NOT!", LENGTH_LONG);
+                Toast toast = Toast.makeText(getApplicationContext(), "Toasty NOT!", Toast.LENGTH_SHORT);
                 toast.show();
             }
-        }
+
     }//onActivityResult
 
 
@@ -110,13 +109,6 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(addAlarm, 1);
     }
 
-    public void updateListView()
-    {
-        listAlarms = db.getAllAlarms();
-        adapter = new AlarmAdapter(this,listAlarms);
-        alarmListView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-    }
 
 
 

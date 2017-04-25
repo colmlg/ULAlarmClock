@@ -23,6 +23,7 @@ import static android.content.Context.ALARM_SERVICE;
 import static android.support.v4.app.ActivityCompat.startActivityForResult;
 import static android.support.v4.content.ContextCompat.startActivity;
 import static android.widget.Toast.LENGTH_LONG;
+import static android.widget.Toast.LENGTH_SHORT;
 
 /**
  * Created by colml on 03/04/2017.
@@ -86,35 +87,45 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
 
                         else {
                             long timeDiff = 0;
-                            Calendar tempCalendar = (Calendar) alarm.getCalendar().clone();
+                            GregorianCalendar alarmCalendar = new GregorianCalendar();
+                            alarmCalendar.setTimeInMillis(System.currentTimeMillis());
+                            boolean future = false;
+                            long smallestTimeDiff = System.currentTimeMillis();
 
-                            //Doesnt work currently, need to change it so that setting a repeating alarm on the current day before the current time doesn't set one for tomorrow, which this does
-                            while(tempCalendar.getTimeInMillis() < currentTime.getTimeInMillis())
-                            {
-                                tempCalendar.add(Calendar.DAY_OF_YEAR, 1);
-                            }
-                            for(int i = 0; i < repeatDays.length; i++)
-                            {
-                                if(repeatDays[i] == 1)
-                                {
-                                    timeDiff =  tempCalendar.getTimeInMillis() - currentTime.getTimeInMillis();
-                                    if(timeDiff < 1)
+                            for (int i = 0; i < repeatDays.length; i++) {
+                                if (repeatDays[i] == 1) {
+
+                                    alarmCalendar.set(Calendar.HOUR_OF_DAY,alarm.getCalendar().get(Calendar.HOUR_OF_DAY));
+                                    alarmCalendar.set(Calendar.MINUTE, alarm.getCalendar().get(Calendar.MINUTE));
+                                    alarmCalendar.set(Calendar.DAY_OF_WEEK, (i+2));
+                                    if(i == 6)
+                                        alarmCalendar.set(Calendar.DAY_OF_WEEK,1);
+
+
+                                    if(alarmCalendar.getTimeInMillis() < System.currentTimeMillis()) {
+                                        alarmCalendar.add(Calendar.WEEK_OF_YEAR, 1);
+                                        future = true;
+                                    }
+
+
+                                    timeDiff = alarmCalendar.getTimeInMillis() - System.currentTimeMillis();
+                                    smallestTimeDiff = smallestTimeDiff > timeDiff ? timeDiff : smallestTimeDiff;
+
+                                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, alarmIntent);
+
+
+
+                                    if(future)
                                     {
-                                        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, AlarmManager.INTERVAL_DAY * 7,  tempCalendar.getTimeInMillis() + 604800000, alarmIntent);
-                                        timeDiff =  604800000 + tempCalendar.getTimeInMillis() - currentTime.getTimeInMillis();
+                                        alarmCalendar.add(Calendar.WEEK_OF_YEAR, -1);
+                                        future = false;
                                     }
-                                    else {
-                                        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, AlarmManager.INTERVAL_DAY * 7,  tempCalendar.getTimeInMillis(), alarmIntent);
-                                    }
-
-
-
-                                    Toast.makeText(getContext(), "Alarm will go off in " + TimeUnit.MILLISECONDS.toHours(timeDiff) + " hours " + TimeUnit.MILLISECONDS.toMinutes(timeDiff) % TimeUnit.HOURS.toMinutes(1) + " minutes.",LENGTH_LONG).show();
                                 }
-
-
-                                tempCalendar.add(Calendar.DAY_OF_YEAR, 1);
                             }
+
+                            Toast.makeText(getContext(), "Alarm will go off in " + TimeUnit.MILLISECONDS.toHours(smallestTimeDiff) + " hours " + TimeUnit.MILLISECONDS.toMinutes(smallestTimeDiff) % TimeUnit.HOURS.toMinutes(1) + " minutes.", LENGTH_LONG).show();
+
+
                         }
 
                         db.toggleAlarmActive(alarm.getId(), true);
@@ -139,7 +150,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
             @Override
             public void onClick(View v) {
                 Intent addAlarm = new Intent(getContext(), CreateAlarm.class);
-                addAlarm.putExtra("id", position + 1);
+                addAlarm.putExtra("id", alarm.getId());
                 Activity mainActivity = (Activity) context;
                 startActivityForResult(mainActivity, addAlarm, 1, null);
 

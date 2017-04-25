@@ -19,6 +19,7 @@ import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
 import static android.widget.Toast.LENGTH_LONG;
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class CreateAlarm extends AppCompatActivity {
     private int hour;
@@ -104,13 +105,13 @@ public class CreateAlarm extends AppCompatActivity {
 
                 if(id > 0)
                 {
-
-                    long timeInMilis = db.getAlarm(id).getCalendar().getTimeInMillis();
                     db.updateAlarm(alarm);
                 }
                 else {
                     db.addAlarm(alarm);
                     alarm.setId(db.getLastInsertId());
+                    //Toast.makeText(getApplicationContext(), "Adding alarm " + alarm.getId() + " to the DB.",LENGTH_SHORT).show();
+
                 }
 
                 Intent returnIntent = new Intent();
@@ -136,20 +137,48 @@ public class CreateAlarm extends AppCompatActivity {
 
                 else {
                     long timeDiff = 0;
-                    for(int i = 0; i < repeatDays.length; i++)
-                    {
-                        if(repeatDays[i] == 1)
-                        {
-                            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, AlarmManager.INTERVAL_DAY * 7, alarm.getCalendar().getTimeInMillis(), alarmIntent);
+                    GregorianCalendar alarmCalendar = new GregorianCalendar();
+                    alarmCalendar.setTimeInMillis(System.currentTimeMillis());
+                    boolean future = false;
+                    long smallestTimeDiff = System.currentTimeMillis();
 
-                            timeDiff = alarm.getCalendar().getTimeInMillis() - currentTime.getTimeInMillis();
-                            Toast.makeText(getApplicationContext(), "Alarm will go off in " + TimeUnit.MILLISECONDS.toHours(timeDiff) + " hours " + TimeUnit.MILLISECONDS.toMinutes(timeDiff) % TimeUnit.HOURS.toMinutes(1) + " minutes.",LENGTH_LONG).show();
+                    for (int i = 0; i < repeatDays.length; i++) {
+                        if (repeatDays[i] == 1) {
+
+                            alarmCalendar.set(Calendar.HOUR_OF_DAY,alarm.getCalendar().get(Calendar.HOUR_OF_DAY));
+                            alarmCalendar.set(Calendar.MINUTE, alarm.getCalendar().get(Calendar.MINUTE));
+                            alarmCalendar.set(Calendar.DAY_OF_WEEK, (i+2));
+                            if(i == 6)
+                                alarmCalendar.set(Calendar.DAY_OF_WEEK,1);
+
+
+                            if(alarmCalendar.getTimeInMillis() < System.currentTimeMillis()) {
+                                alarmCalendar.add(Calendar.WEEK_OF_YEAR, 1);
+                                future = true;
+                            }
+
+
+                            timeDiff = alarmCalendar.getTimeInMillis() - System.currentTimeMillis();
+                            smallestTimeDiff = smallestTimeDiff > timeDiff ? timeDiff : smallestTimeDiff;
+
+                            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, alarmIntent);
+
+
+
+                            if(future)
+                            {
+                                alarmCalendar.add(Calendar.WEEK_OF_YEAR, -1);
+                                future = false;
+                            }
                         }
-
-
-                        alarm.getCalendar().add(Calendar.DAY_OF_YEAR, 1);
                     }
+
+                    Toast.makeText(getApplicationContext(), "Alarm will go off in " + TimeUnit.MILLISECONDS.toHours(smallestTimeDiff) + " hours " + TimeUnit.MILLISECONDS.toMinutes(smallestTimeDiff) % TimeUnit.HOURS.toMinutes(1) + " minutes.", LENGTH_LONG).show();
+
+
                 }
+
+
 
                 setResult(Activity.RESULT_OK,returnIntent);
                 finish();
@@ -169,6 +198,8 @@ public class CreateAlarm extends AppCompatActivity {
         Intent intent = getIntent();
         int id = intent.getIntExtra("id", 0);
 
+
+        //If the alarm already exists
         if(id > 0)
         {
             // Inflate the menu; this adds items to the action bar if it is present.
@@ -197,6 +228,7 @@ public class CreateAlarm extends AppCompatActivity {
             alarmManager.cancel(alarmIntent);
             alarmIntent.cancel();
             db.deleteAlarm(id);
+
             setResult(Activity.RESULT_OK);
             finish();
         }
