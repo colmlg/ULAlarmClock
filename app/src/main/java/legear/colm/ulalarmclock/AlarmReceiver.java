@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import static java.security.AccessController.getContext;
-
 /**
  * Created by colml on 04/04/2017.
  */
@@ -26,6 +24,11 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 
     };
+
+    private void addPuzzle()
+    {
+        Intent addPuzzle = new Intent(getApplicationContext)
+    }
 
 
 }
