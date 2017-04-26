@@ -30,7 +30,6 @@ class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_TIME = "time";
     private static final String KEY_ACTIVE = "active";
 
-
     private static final String KEY_MONDAY = "monday";
     private static final String KEY_TUESDAY = "tuesday";
     private static final String KEY_WEDNESDAY = "wednesday";

@@ -5,6 +5,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,8 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    @NonNull
+    public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         final Alarm alarm = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
@@ -59,8 +61,6 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
         alarmSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 DatabaseHandler db = new DatabaseHandler(getContext());
-
-
 
                 //Check if the view is shown, as we are re-using views in the listview
                 if(buttonView.isShown()) {
@@ -163,6 +163,11 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
         return convertView;
     }
 
+
+    void toggleAlarm(boolean toggle)
+    {
+
+    }
 
 }
 

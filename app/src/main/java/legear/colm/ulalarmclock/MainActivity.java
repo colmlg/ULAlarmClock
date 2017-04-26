@@ -56,11 +56,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
 
-
-
-
-
-
     }
 
     @Override
@@ -108,8 +103,5 @@ public class MainActivity extends AppCompatActivity {
         Intent addAlarm = new Intent(getApplicationContext(), CreateAlarm.class);
         startActivityForResult(addAlarm, 1);
     }
-
-
-
 
 }
