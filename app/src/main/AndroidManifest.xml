@@ -23,7 +23,8 @@
 
         <receiver android:name=".AlarmReceiver" />
 
-        <activity android:name=".AlarmReceivedActivity"></activity>
+        <activity android:name=".MathPuzzle" />
+        <activity android:name=".MemoryPuzzle"></activity>
     </application>
 
 </manifest>
