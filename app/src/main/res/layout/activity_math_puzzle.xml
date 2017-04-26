@@ -19,7 +19,9 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="72dp"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@android:color/black"
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/editText"
@@ -27,18 +29,16 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="105dp"
+            android:layout_marginTop="49dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:inputType="textPersonName" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="87dp"
-            android:text="Button" />
+            android:text="OK"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

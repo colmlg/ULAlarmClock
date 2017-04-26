@@ -16,7 +16,7 @@ class DatabaseHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
     // Database Name
     private static final String DATABASE_NAME = "alarms.db";
@@ -24,11 +24,13 @@ class DatabaseHandler extends SQLiteOpenHelper {
     // table name
     private static final String TABLE_ALARMS = "alarms";
     private static final String TABLE_ALARMREPEATDAYS = "alarmRepeatDays";
+   // private static final String TABLE_MATH_PUZZLES = "math_puzzles";
 
     // Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_TIME = "time";
     private static final String KEY_ACTIVE = "active";
+    private static final String KEY_PUZZLES = "puzzles";
 
     private static final String KEY_MONDAY = "monday";
     private static final String KEY_TUESDAY = "tuesday";
@@ -37,6 +39,9 @@ class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_FRIDAY = "friday";
     private static final String KEY_SATURDAY = "saturday";
     private static final String KEY_SUNDAY = "sunday";
+
+   // private static final String KEY_QUESTION = "question";
+    //private static final String KEY_ANSWER = "answer";
 
 
 
@@ -48,7 +53,7 @@ class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_ALARMS_TABLE = "CREATE TABLE " + TABLE_ALARMS + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TIME + " TEXT," + KEY_ACTIVE + " BOOLEAN" + ")";
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TIME + " TEXT," + KEY_ACTIVE + " BOOLEAN," + KEY_PUZZLES + " TEXT" + ")";
         db.execSQL(CREATE_ALARMS_TABLE);
 
         String CREATE_ALARMREPEATDAYS_TABLE = "CREATE TABLE " + TABLE_ALARMREPEATDAYS + "("
@@ -56,19 +61,9 @@ class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_TUESDAY + " BOOLEAN," + KEY_WEDNESDAY + " BOOLEAN," + KEY_THURSDAY + " BOOLEAN,"
                 + KEY_FRIDAY + " BOOLEAN," + KEY_SATURDAY + " BOOLEAN," + KEY_SUNDAY + " BOOLEAN" + ")";
         db.execSQL(CREATE_ALARMREPEATDAYS_TABLE);
+
+        //String CREATE_TABLE_MATH_PUZZLES = "CREATE TABLE " + TABLE_MATH_PUZZLES + "(" + KEY_QUESTION + " TEXT," + KEY_ANSWER + " TEXT"
     }
-
-
-    /**
-    // Upgrading database
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
-
-        // Create tables again
-        onCreate(db);
-    }**/
 
     public void addAlarm(Alarm alarm)
     {
@@ -76,6 +71,7 @@ class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_TIME, alarm.getTime());
         values.put(KEY_ACTIVE, alarm.isEnabled() ? 1 : 0);
+        values.put(KEY_PUZZLES, alarm.getPuzzles());
         // Inserting Row
         db.insert(TABLE_ALARMS, null, values);
 
@@ -115,7 +111,7 @@ class DatabaseHandler extends SQLiteOpenHelper {
     public void updateAlarm(Alarm alarm)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String updateAlarmTable = "UPDATE " + TABLE_ALARMS + " SET " + KEY_TIME + " = '" + alarm.getTime() + "', " + KEY_ACTIVE + " = '" + (alarm.isEnabled() ? 1 : 0) + "' WHERE " + KEY_ID + " = '" + alarm.getId() + "'";
+        String updateAlarmTable = "UPDATE " + TABLE_ALARMS + " SET " + KEY_TIME + " = '" + alarm.getTime() + "', " + KEY_ACTIVE + " = '" + (alarm.isEnabled() ? 1 : 0) + "', " + KEY_PUZZLES + " = '" + alarm.getPuzzles() + "' WHERE " + KEY_ID + " = '" + alarm.getId() + "'";
         db.execSQL(updateAlarmTable);
         int [] repeatDays = alarm.getRepeatDays();
         String updateRepeatTable = "UPDATE " + TABLE_ALARMREPEATDAYS + " SET " + KEY_MONDAY + " = "  + (repeatDays[0] == 1 ? 1 : 0) + ", " + KEY_TUESDAY + " = "  + (repeatDays[1] == 1 ? 1 : 0) + ", "
@@ -150,9 +146,10 @@ class DatabaseHandler extends SQLiteOpenHelper {
                 alarm.setId(Integer.parseInt(cursor.getString(0)));
                 alarm.setTime(cursor.getString(1));
                 alarm.setEnabled(cursor.getInt(2) == 1);
+                alarm.setPuzzles(cursor.getString(3));
 
-                repeatDays = new int[]{Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)),
-                                       Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9)), Integer.parseInt(cursor.getString(10)) };
+                repeatDays = new int[]{Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)),
+                                       Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9)), Integer.parseInt(cursor.getString(10)), Integer.parseInt(cursor.getString(11)) };
                 alarm.setRepeatDays(repeatDays);
 
 
@@ -177,9 +174,10 @@ class DatabaseHandler extends SQLiteOpenHelper {
         alarm.setId(Integer.parseInt(cursor.getString(0)));
         alarm.setTime(cursor.getString(1));
         alarm.setEnabled(cursor.getInt(2) == 1);
+        alarm.setPuzzles(cursor.getString(3));
 
-        int []  repeatDays = new int[]{Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)),
-                Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9)), Integer.parseInt(cursor.getString(10)) };
+        int []  repeatDays = new int[]{Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)),
+                Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9)), Integer.parseInt(cursor.getString(10)), Integer.parseInt(cursor.getString(11)) };
         alarm.setRepeatDays(repeatDays);
         // return alarm
         return alarm;

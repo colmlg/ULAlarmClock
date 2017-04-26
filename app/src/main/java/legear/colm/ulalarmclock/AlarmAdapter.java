@@ -40,14 +40,17 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
     public AlarmAdapter(Context context, ArrayList<Alarm> alarms) {
         super(context, 0, alarms);
         this.context = context;
+        //Set up the alarm manager
+        alarmManager = (AlarmManager)context.getSystemService(ALARM_SERVICE);
 
     }
 
     @Override
     @NonNull
     public View getView(int position, View convertView, ViewGroup parent) {
+        final DatabaseHandler db = new DatabaseHandler(getContext());
         // Get the data item for this position
-        final Alarm alarm = getItem(position);
+        final Alarm alarm = db.getAlarm(getItem(position).getId());
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_alarm, parent, false);
@@ -58,9 +61,10 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
         Switch alarmSwitch = (Switch) convertView.findViewById(R.id.switch1);
         alarmSwitch.setChecked(alarm.isEnabled());
 
+
         alarmSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                DatabaseHandler db = new DatabaseHandler(getContext());
+
 
                 //Check if the view is shown, as we are re-using views in the listview
                 if(buttonView.isShown()) {
@@ -158,7 +162,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
         });
         // Populate the data into the template view using the data object
         tvTime.setText(alarm.getTime());
-        tvRepeat.setText(alarm.getRepeatString());
+        tvRepeat.setText(alarm.getRepeatString() + "\n" + alarm.getPuzzleString());
         // Return the completed view to render on screen
         return convertView;
     }

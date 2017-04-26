@@ -24,6 +24,7 @@
         <receiver android:name=".AlarmReceiver" />
 
         <activity android:name=".MathPuzzle" />
+        <activity android:name=".AlarmReceivedActivity" />
         <activity android:name=".MemoryPuzzle"></activity>
     </application>
 

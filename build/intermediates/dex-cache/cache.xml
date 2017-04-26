@@ -7,7 +7,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="80547d5d856d947a02905df605675589f61678e2">
+        sha1="d5debada2ffffb84330c194be2bf23bfa28760dc">
         <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_cad8da99fe28b3556193dbbac7b29c64070ecf85\classes.dex" />
     </item>
     <item
@@ -16,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
         <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_adaa79a25e4f0dc988c952d41d594e8d3abf6c5c\classes.dex" />
     </item>
 

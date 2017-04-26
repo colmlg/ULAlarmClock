@@ -16,6 +16,8 @@ public class Alarm {
     private int [] repeatDays;
     public int id = 0;
     private boolean enabled;
+    //A string of comma seperated values referring to the puzzles associated with this alarm 0 = math 1= memory game
+    private String puzzles;
 
 
     public Alarm()
@@ -24,6 +26,7 @@ public class Alarm {
         repeatDays = new int[] {0, 0, 0, 0, 0, 0, 0};
         id = 0;
         enabled = true;
+        puzzles = "";
 
     }
 
@@ -59,6 +62,17 @@ public class Alarm {
         }
 
         return false;
+    }
+
+    //Sets the puzzles associated with this alarm
+    public void setPuzzles(String puzzles)
+    {
+        this.puzzles = puzzles;
+    }
+
+    public String getPuzzles()
+    {
+        return puzzles;
     }
 
     public Calendar getCalendar()
@@ -168,6 +182,31 @@ public class Alarm {
             repeatString += "None";
 
         return repeatString;
+    }
+
+    public String getPuzzleString()
+    {
+        String puzzleString = "Puzzles: ";
+        String [] puzzleNames = {"Maths", "Memory"};
+        String [] puzzlesArray = puzzles.split(",");
+        boolean hasPuzzles = false;
+        String iString = "";
+
+        for(int i = 0; i < puzzlesArray.length; i++)
+        {
+            iString += i;
+            if(puzzlesArray[i].equals(iString))
+            {
+                puzzleString +=  " " + puzzleNames[i];
+                hasPuzzles = true;
+            }
+            iString = "";
+        }
+
+        if(!hasPuzzles)
+            puzzleString = "";
+
+        return puzzleString;
     }
 
     @Override

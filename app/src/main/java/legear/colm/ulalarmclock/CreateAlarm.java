@@ -46,7 +46,7 @@ public class CreateAlarm extends AppCompatActivity {
         {
             Alarm alarm = db.getAlarm(id);
             int [] repeatDays = alarm.getRepeatDays();
-
+            String puzzles = alarm.getPuzzles();
             ((TimePicker) findViewById(R.id.timePicker2)).setHour(alarm.getCalendar().get(Calendar.HOUR_OF_DAY));
             ((TimePicker) findViewById(R.id.timePicker2)).setMinute(alarm.getCalendar().get(Calendar.MINUTE));
             ((CheckBox) findViewById(R.id.checkBoxMon)).setChecked(repeatDays[0] == 1);
@@ -56,6 +56,8 @@ public class CreateAlarm extends AppCompatActivity {
             ((CheckBox) findViewById(R.id.checkBoxFri)).setChecked(repeatDays[4] == 1);
             ((CheckBox) findViewById(R.id.checkBoxSat)).setChecked(repeatDays[5] == 1);
             ((CheckBox) findViewById(R.id.checkBoxSun)).setChecked(repeatDays[6] == 1);
+            ((CheckBox) findViewById(R.id.checkBoxMathPuzzle)).setChecked(puzzles.contains("0"));
+            ((CheckBox) findViewById(R.id.checkBoxMemoryPuzzle)).setChecked(puzzles.contains("1"));
 
         }
 
@@ -70,6 +72,7 @@ public class CreateAlarm extends AppCompatActivity {
                 minute = picker.getMinute();
                 int [] repeatDays = new int[7];
                 Alarm alarm = new Alarm();
+                String puzzles = "";
                 DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
                 if(id > 0)
@@ -79,6 +82,8 @@ public class CreateAlarm extends AppCompatActivity {
                 }
 
 
+
+                //REPEATING DAYS CHECKBOXES
                 CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxMon);
                 repeatDays[0] = checkBox.isChecked() ? 1 : 0;
 
@@ -100,8 +105,15 @@ public class CreateAlarm extends AppCompatActivity {
                 checkBox = (CheckBox) findViewById(R.id.checkBoxSun);
                 repeatDays[6] = checkBox.isChecked() ? 1 : 0;
 
+                //PUZZLES CHECKBOXES
+                checkBox = (CheckBox) findViewById(R.id.checkBoxMathPuzzle);
+                puzzles = checkBox.isChecked() ? puzzles += "0," : puzzles;
+                checkBox = (CheckBox) findViewById(R.id.checkBoxMemoryPuzzle);
+                puzzles = checkBox.isChecked() ? puzzles += "1," : puzzles;
+
                 alarm.setTime(hour, minute);
                 alarm.setRepeatDays(repeatDays);
+                alarm.setPuzzles(puzzles);
 
                 if(id > 0)
                 {

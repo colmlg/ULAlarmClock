@@ -1,5 +1,6 @@
 package legear.colm.ulalarmclock;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -10,12 +11,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
 public class AlarmReceivedActivity extends AppCompatActivity {
     private MediaPlayer mMediaPlayer;
+    private boolean finishedPuzzles = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,11 +29,34 @@ public class AlarmReceivedActivity extends AppCompatActivity {
         int id = intent.getIntExtra("id", 0);
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
         Alarm alarm = db.getAlarm(id);
-
+        String [] puzzles = alarm.getPuzzles().split(",");
 
         TextView tv = (TextView) findViewById(R.id.textView);
         tv.setText(alarm.getTime());
         playSound(this);
+
+        Intent puzzleIntent = new Intent();
+
+        if(puzzles.length > 0)
+        {
+            for(String s : puzzles)
+            {
+                switch(Integer.parseInt(s)) {
+                    case 0:
+                         puzzleIntent = new Intent(getApplicationContext(), MathPuzzle.class);
+                         break;
+                    case 1:
+                        puzzleIntent = new Intent(getApplicationContext(), MemoryPuzzle.class);
+                        break;
+                }
+
+                startActivityForResult(puzzleIntent, 2);
+            }
+
+            finishedPuzzles = true;
+
+        }
+
 
         Button stopButton = (Button) findViewById(R.id.button);
         stopButton.setOnClickListener(new View.OnClickListener() {
@@ -58,4 +85,16 @@ public class AlarmReceivedActivity extends AppCompatActivity {
             System.out.println("ERROR PLAYING ALARM SOUND");
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Activity.RESULT_OK && finishedPuzzles){
+            mMediaPlayer.stop();
+            finish();
+        }
+        if (resultCode == Activity.RESULT_CANCELED) {
+
+        }
+
+    }//onActivityResult
 }
