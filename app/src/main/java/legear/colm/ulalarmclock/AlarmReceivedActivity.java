@@ -97,4 +97,8 @@ public class AlarmReceivedActivity extends AppCompatActivity {
         }
 
     }//onActivityResult
+
+    @Override
+    public void onBackPressed() {
+    }
 }

@@ -71,6 +71,9 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
                     if (isChecked) {
                         alarm.setEnabled(true);
                         db.toggleAlarmActive(alarm.getId(), true);
+                        AlarmSetter setter = new AlarmSetter(getContext());
+                        setter.setAlarm(alarm, getContext());
+                        /**
                         int [] repeatDays = alarm.getRepeatDays();
                         Intent intent = new Intent(getContext(), AlarmReceiver.class);
                         intent.putExtra("id", alarm.getId());
@@ -133,6 +136,8 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
                         }
 
                         db.toggleAlarmActive(alarm.getId(), true);
+
+                         **/
                     }
 
 

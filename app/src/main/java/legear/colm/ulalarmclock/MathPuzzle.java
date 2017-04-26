@@ -29,9 +29,6 @@ public class MathPuzzle extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final EditText et = (EditText) findViewById(R.id.editText);
-
-
-
                 String x = et.getText().toString();
                 if(x.equals(puzzle[1])) {
                     Intent returnIntent = new Intent();
@@ -46,5 +43,9 @@ public class MathPuzzle extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }
