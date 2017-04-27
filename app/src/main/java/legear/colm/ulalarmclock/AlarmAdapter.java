@@ -72,72 +72,8 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
                         alarm.setEnabled(true);
                         db.toggleAlarmActive(alarm.getId(), true);
                         AlarmSetter setter = new AlarmSetter(getContext());
-                        setter.setAlarm(alarm, getContext());
-                        /**
-                        int [] repeatDays = alarm.getRepeatDays();
-                        Intent intent = new Intent(getContext(), AlarmReceiver.class);
-                        intent.putExtra("id", alarm.getId());
-                        alarmIntent = PendingIntent.getBroadcast(getContext(), alarm.getId(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
-                        Calendar currentTime = new GregorianCalendar();
+                        setter.setAlarm(alarm);
 
-
-                        if(!alarm.isRepeating())
-                        {
-                            while(alarm.getCalendar().getTimeInMillis() < currentTime.getTimeInMillis())
-                            {
-                                alarm.getCalendar().add(Calendar.DAY_OF_YEAR, 1);
-                            }
-                            alarmManager.set(AlarmManager.RTC_WAKEUP, alarm.getCalendar().getTimeInMillis(), alarmIntent);
-                            long timeDiff = alarm.getCalendar().getTimeInMillis() - currentTime.getTimeInMillis();
-                            Toast.makeText(getContext(), "Alarm will go off in " + TimeUnit.MILLISECONDS.toHours(timeDiff) + " hours " + TimeUnit.MILLISECONDS.toMinutes(timeDiff) % TimeUnit.HOURS.toMinutes(1) + " minutes.",LENGTH_LONG).show();
-                        }
-
-                        else {
-                            long timeDiff = 0;
-                            GregorianCalendar alarmCalendar = new GregorianCalendar();
-                            alarmCalendar.setTimeInMillis(System.currentTimeMillis());
-                            boolean future = false;
-                            long smallestTimeDiff = System.currentTimeMillis();
-
-                            for (int i = 0; i < repeatDays.length; i++) {
-                                if (repeatDays[i] == 1) {
-
-                                    alarmCalendar.set(Calendar.HOUR_OF_DAY,alarm.getCalendar().get(Calendar.HOUR_OF_DAY));
-                                    alarmCalendar.set(Calendar.MINUTE, alarm.getCalendar().get(Calendar.MINUTE));
-                                    alarmCalendar.set(Calendar.DAY_OF_WEEK, (i+2));
-                                    if(i == 6)
-                                        alarmCalendar.set(Calendar.DAY_OF_WEEK,1);
-
-
-                                    if(alarmCalendar.getTimeInMillis() < System.currentTimeMillis()) {
-                                        alarmCalendar.add(Calendar.WEEK_OF_YEAR, 1);
-                                        future = true;
-                                    }
-
-
-                                    timeDiff = alarmCalendar.getTimeInMillis() - System.currentTimeMillis();
-                                    smallestTimeDiff = smallestTimeDiff > timeDiff ? timeDiff : smallestTimeDiff;
-
-                                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, alarmIntent);
-
-
-
-                                    if(future)
-                                    {
-                                        alarmCalendar.add(Calendar.WEEK_OF_YEAR, -1);
-                                        future = false;
-                                    }
-                                }
-                            }
-
-                            Toast.makeText(getContext(), "Alarm will go off in " + TimeUnit.MILLISECONDS.toHours(smallestTimeDiff) + " hours " + TimeUnit.MILLISECONDS.toMinutes(smallestTimeDiff) % TimeUnit.HOURS.toMinutes(1) + " minutes.", LENGTH_LONG).show();
-
-
-                        }
-
-                        db.toggleAlarmActive(alarm.getId(), true);
-
-                         **/
                     }
 
 
@@ -170,12 +106,6 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
         tvRepeat.setText(alarm.getRepeatString() + "\n" + alarm.getPuzzleString());
         // Return the completed view to render on screen
         return convertView;
-    }
-
-
-    void toggleAlarm(boolean toggle)
-    {
-
     }
 
 }

@@ -31,8 +31,6 @@ public class AlarmReceivedActivity extends AppCompatActivity {
         Alarm alarm = db.getAlarm(id);
         String [] puzzles = alarm.getPuzzles().split(",");
 
-        TextView tv = (TextView) findViewById(R.id.textView);
-        tv.setText(alarm.getTime());
         playSound(this);
 
         Intent puzzleIntent = new Intent();
@@ -41,16 +39,18 @@ public class AlarmReceivedActivity extends AppCompatActivity {
         {
             for(String s : puzzles)
             {
-                switch(Integer.parseInt(s)) {
-                    case 0:
-                         puzzleIntent = new Intent(getApplicationContext(), MathPuzzle.class);
-                         break;
-                    case 1:
-                        puzzleIntent = new Intent(getApplicationContext(), MemoryPuzzle.class);
-                        break;
-                }
+                if(!s.equals("")) {
+                    switch (Integer.parseInt(s)) {
+                        case 0:
+                            puzzleIntent = new Intent(getApplicationContext(), MathPuzzle.class);
+                            break;
+                        case 1:
+                            puzzleIntent = new Intent(getApplicationContext(), MemoryPuzzle.class);
+                            break;
+                    }
 
-                startActivityForResult(puzzleIntent, 2);
+                    startActivityForResult(puzzleIntent, 2);
+                }
             }
 
             finishedPuzzles = true;

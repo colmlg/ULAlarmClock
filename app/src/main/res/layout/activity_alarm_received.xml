@@ -24,19 +24,6 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textAppearance="@android:style/TextAppearance.Material.Title"
-            android:textSize="36sp"
-            tools:layout_editor_absoluteX="116dp"
-            tools:layout_editor_absoluteY="55dp"
-            android:layout_marginTop="34dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="250dp"
@@ -44,6 +31,15 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             app:srcCompat="@drawable/ic_alarm_black_24dp" />
+
+        <TextClock
+            android:id="@+id/textClock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:textSize="30sp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 

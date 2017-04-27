@@ -11,16 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.TimePicker;
-import android.widget.Toast;
-
 import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.concurrent.TimeUnit;
-
-import static android.widget.Toast.LENGTH_LONG;
-import static android.widget.Toast.LENGTH_SHORT;
 
 public class CreateAlarm extends AppCompatActivity {
     private int hour;
@@ -129,7 +121,7 @@ public class CreateAlarm extends AppCompatActivity {
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("id", alarm.getId());
                 AlarmSetter setter = new AlarmSetter(getApplicationContext());
-                setter.setAlarm(alarm, getApplicationContext());
+                setter.setAlarm(alarm);
                 setResult(Activity.RESULT_OK,returnIntent);
                 finish();
 

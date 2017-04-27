@@ -1,6 +1,9 @@
 package legear.colm.ulalarmclock;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +15,8 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 
 import static android.widget.Toast.LENGTH_LONG;
@@ -22,13 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private AlarmAdapter adapter;
     private DatabaseHandler db;
     private int i = 0;
-
     private ListView alarmListView;
-
-
-
-
-
+    private AlarmManager alarmManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,17 +43,11 @@ public class MainActivity extends AppCompatActivity {
                 addAlarm();
             }
         });
-
-
+        alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         //Set up the adapter and listview
         db = new DatabaseHandler(getApplicationContext());
-        listAlarms = db.getAllAlarms();
         alarmListView = (ListView) findViewById(R.id.AlarmList);
-        adapter = new AlarmAdapter(this,listAlarms);
-        alarmListView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-
-
+        refreshAlarmList();
     }
 
     @Override
@@ -67,14 +59,30 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_alarms_from_id) {
+                Intent ttIntent = new Intent(getApplicationContext(),EnterStudentNumberActivity.class);
+                startActivityForResult(ttIntent, 3);
+                refreshAlarmList();
+
+        }
+        else if(id == R.id.action_delete_all_alarms)
+        {
+            Intent intent;
+            PendingIntent alarmIntent;
+            for(Alarm alarm : listAlarms)
+            {
+                intent = new Intent(getApplicationContext(), AlarmReceiver.class);
+                intent.putExtra("id", alarm.getId());
+                alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), alarm.getId(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                alarmManager.cancel(alarmIntent);
+                alarmIntent.cancel();
+                db.deleteAlarm(alarm.getId());
+            }
+
+            refreshAlarmList();
         }
 
         return super.onOptionsItemSelected(item);
@@ -83,17 +91,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        int id;
-            if(resultCode == Activity.RESULT_OK){
-                listAlarms = db.getAllAlarms();
-                adapter = new AlarmAdapter(this,listAlarms);
-                alarmListView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Toasty NOT!", Toast.LENGTH_SHORT);
-                toast.show();
-            }
+        if(resultCode == Activity.RESULT_OK){
+            refreshAlarmList();
+        }
+
+        if (resultCode == 2 && requestCode == 3) {
+            Toast.makeText(getApplicationContext(), "Error setting alarms from timetable, is your student number correct?", Toast.LENGTH_LONG).show();
+        }
 
     }//onActivityResult
 
@@ -103,5 +107,14 @@ public class MainActivity extends AppCompatActivity {
         Intent addAlarm = new Intent(getApplicationContext(), CreateAlarm.class);
         startActivityForResult(addAlarm, 1);
     }
+
+    private void refreshAlarmList()
+    {
+        listAlarms = db.getAllAlarms();
+        adapter = new AlarmAdapter(this,listAlarms);
+        alarmListView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
 
 }

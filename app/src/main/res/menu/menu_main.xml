@@ -3,8 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="legear.colm.ulalarmclock.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_alarms_from_id"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Create Alarms From UL ID"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_delete_all_alarms"
+        android:orderInCategory="100"
+        android:title="Delete all alarms"
         app:showAsAction="never" />
 </menu>

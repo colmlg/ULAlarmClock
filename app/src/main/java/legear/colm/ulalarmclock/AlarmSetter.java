@@ -18,13 +18,15 @@ import static android.widget.Toast.LENGTH_LONG;
 
 public class AlarmSetter {
     private AlarmManager alarmManager;
+    private Context context;
 
     AlarmSetter(Context context)
     {
+        this.context = context;
         alarmManager = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
     }
 
-    public void setAlarm(Alarm alarm, Context context)
+    public void setAlarm(Alarm alarm)
     {
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.putExtra("id", alarm.getId());
