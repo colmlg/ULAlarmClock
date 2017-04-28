@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ class DatabaseHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 9;
 
     // Database Name
     private static final String DATABASE_NAME = "alarms.db";
@@ -31,6 +32,7 @@ class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_TIME = "time";
     private static final String KEY_ACTIVE = "active";
     private static final String KEY_PUZZLES = "puzzles";
+    private static final String KEY_RINGTONE = "ringtone";
 
     private static final String KEY_MONDAY = "monday";
     private static final String KEY_TUESDAY = "tuesday";
@@ -53,7 +55,7 @@ class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_ALARMS_TABLE = "CREATE TABLE " + TABLE_ALARMS + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TIME + " TEXT," + KEY_ACTIVE + " BOOLEAN," + KEY_PUZZLES + " TEXT" + ")";
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TIME + " TEXT," + KEY_ACTIVE + " BOOLEAN," + KEY_PUZZLES + " TEXT," + KEY_RINGTONE + " TEXT " + ")";
         db.execSQL(CREATE_ALARMS_TABLE);
 
         String CREATE_ALARMREPEATDAYS_TABLE = "CREATE TABLE " + TABLE_ALARMREPEATDAYS + "("
@@ -72,6 +74,7 @@ class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_TIME, alarm.getTime());
         values.put(KEY_ACTIVE, alarm.isEnabled() ? 1 : 0);
         values.put(KEY_PUZZLES, alarm.getPuzzles());
+        values.put(KEY_RINGTONE, alarm.getUri().toString());
         // Inserting Row
         db.insert(TABLE_ALARMS, null, values);
 
@@ -105,13 +108,15 @@ class DatabaseHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT MAX(" + KEY_ID + ") FROM " + TABLE_ALARMS;
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
+        db.close();
         return cursor.getInt(0);
     }
 
     public void updateAlarm(Alarm alarm)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String updateAlarmTable = "UPDATE " + TABLE_ALARMS + " SET " + KEY_TIME + " = '" + alarm.getTime() + "', " + KEY_ACTIVE + " = '" + (alarm.isEnabled() ? 1 : 0) + "', " + KEY_PUZZLES + " = '" + alarm.getPuzzles() + "' WHERE " + KEY_ID + " = '" + alarm.getId() + "'";
+        String updateAlarmTable = "UPDATE " + TABLE_ALARMS + " SET " + KEY_TIME + " = '" + alarm.getTime() + "', " + KEY_ACTIVE + " = '" + (alarm.isEnabled() ? 1 : 0) + "', " + KEY_PUZZLES + " = '" + alarm.getPuzzles() + "', " + KEY_RINGTONE + " = '" + alarm.getUri().toString() + "' WHERE " + KEY_ID + " = '" + alarm.getId() + "'";
+
         db.execSQL(updateAlarmTable);
         int [] repeatDays = alarm.getRepeatDays();
         String updateRepeatTable = "UPDATE " + TABLE_ALARMREPEATDAYS + " SET " + KEY_MONDAY + " = "  + (repeatDays[0] == 1 ? 1 : 0) + ", " + KEY_TUESDAY + " = "  + (repeatDays[1] == 1 ? 1 : 0) + ", "
@@ -126,6 +131,7 @@ class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_ALARMS, "id = " + id, null);
         db.delete(TABLE_ALARMREPEATDAYS, "id = " + id, null);
+        db.close();
 
     }
 
@@ -147,9 +153,10 @@ class DatabaseHandler extends SQLiteOpenHelper {
                 alarm.setTime(cursor.getString(1));
                 alarm.setEnabled(cursor.getInt(2) == 1);
                 alarm.setPuzzles(cursor.getString(3));
+                alarm.setUri(Uri.parse(cursor.getString(4)));
 
-                repeatDays = new int[]{Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)),
-                                       Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9)), Integer.parseInt(cursor.getString(10)), Integer.parseInt(cursor.getString(11)) };
+                repeatDays = new int[]{Integer.parseInt(cursor.getString(6)),Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9)),
+                                        Integer.parseInt(cursor.getString(10)), Integer.parseInt(cursor.getString(11)),  Integer.parseInt(cursor.getString(12)) };
                 alarm.setRepeatDays(repeatDays);
 
 
@@ -159,6 +166,7 @@ class DatabaseHandler extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
+        db.close();
         // return contact list
         return alarmList;
     }
@@ -175,10 +183,13 @@ class DatabaseHandler extends SQLiteOpenHelper {
         alarm.setTime(cursor.getString(1));
         alarm.setEnabled(cursor.getInt(2) == 1);
         alarm.setPuzzles(cursor.getString(3));
+        alarm.setUri(Uri.parse(cursor.getString(4)));
 
-        int []  repeatDays = new int[]{Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)),
-                Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9)), Integer.parseInt(cursor.getString(10)), Integer.parseInt(cursor.getString(11)) };
+        int [] repeatDays = new int[]{Integer.parseInt(cursor.getString(6)),Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9)),
+                Integer.parseInt(cursor.getString(10)), Integer.parseInt(cursor.getString(11)),  Integer.parseInt(cursor.getString(12)) };
         alarm.setRepeatDays(repeatDays);
+        cursor.close();
+        db.close();
         // return alarm
         return alarm;
     }

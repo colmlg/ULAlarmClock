@@ -3,29 +3,50 @@ package legear.colm.ulalarmclock;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CreateAlarm extends AppCompatActivity {
-    private int hour;
-    private int minute;
+
     private PendingIntent alarmIntent;
     private AlarmManager alarmManager;
-
+    Context toneContext;
+    Uri ringtoneUri;
+    TextView ringToneName;
+    int id;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_alarm);
+        toneContext = this;
         
         //Set up the alarm manager
         alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
@@ -33,15 +54,35 @@ public class CreateAlarm extends AppCompatActivity {
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
         Intent intent = getIntent();
-        final int id = intent.getIntExtra("id", 0);
+        id = intent.getIntExtra("id", 0);
+        ringToneName = (TextView) findViewById(R.id.textViewRingtoneName);
+        ringToneName.setText(RingtoneManager.getRingtone(this, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)).getTitle(this).replace("Default ringtone (", "").replace(")",""));
 
+        TextView changeButton = (TextView) findViewById(R.id.textViewChangeButton);
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select ringtone for alarm:");
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE,RingtoneManager.TYPE_ALARM);
+                startActivityForResult(intent,999);
+            }
+        };
+
+        changeButton.setOnClickListener(listener);
+        ringToneName.setOnClickListener(listener);
+
+
+        //If the alarm already exists
         if(id > 0)
         {
             Alarm alarm = db.getAlarm(id);
             int [] repeatDays = alarm.getRepeatDays();
             String puzzles = alarm.getPuzzles();
-            ((TimePicker) findViewById(R.id.timePicker2)).setHour(alarm.getCalendar().get(Calendar.HOUR_OF_DAY));
-            ((TimePicker) findViewById(R.id.timePicker2)).setMinute(alarm.getCalendar().get(Calendar.MINUTE));
+            ((CustomTimePicker) findViewById(R.id.timePicker2)).setHour(alarm.getCalendar().get(Calendar.HOUR_OF_DAY));
+            ((CustomTimePicker) findViewById(R.id.timePicker2)).setMinute(alarm.getCalendar().get(Calendar.MINUTE));
             ((CheckBox) findViewById(R.id.checkBoxMon)).setChecked(repeatDays[0] == 1);
             ((CheckBox) findViewById(R.id.checkBoxTue)).setChecked(repeatDays[1] == 1);
             ((CheckBox) findViewById(R.id.checkBoxWed)).setChecked(repeatDays[2] == 1);
@@ -52,119 +93,112 @@ public class CreateAlarm extends AppCompatActivity {
             ((CheckBox) findViewById(R.id.checkBoxMathPuzzle)).setChecked(puzzles.contains("0"));
             ((CheckBox) findViewById(R.id.checkBoxMemoryPuzzle)).setChecked(puzzles.contains("1"));
             ((CheckBox) findViewById(R.id.checkBoxPassword)).setChecked(puzzles.contains("2"));
+            ringToneName.setText(RingtoneManager.getRingtone(this, alarm.getUri()).getTitle(this).replace("Default ringtone (", "").replace(")",""));
 
         }
 
 
-        Button okButton = (Button) findViewById(R.id.button2);
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TimePicker picker = (TimePicker) findViewById(R.id.timePicker2);
-                hour = picker.getHour();
-                minute = picker.getMinute();
-                int [] repeatDays = new int[7];
-                Alarm alarm = new Alarm();
-                String puzzles = "";
-                DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-
-                if(id > 0)
-                {
-                    alarm = db.getAlarm(id);
-                    alarm.setEnabled(true);
-                }
-
-
-
-                //REPEATING DAYS CHECKBOXES
-                CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxMon);
-                repeatDays[0] = checkBox.isChecked() ? 1 : 0;
-
-                checkBox = (CheckBox) findViewById(R.id.checkBoxTue);
-                repeatDays[1] = checkBox.isChecked() ? 1 : 0;
-
-                checkBox = (CheckBox) findViewById(R.id.checkBoxWed);
-                repeatDays[2] = checkBox.isChecked() ? 1 : 0;
-
-                checkBox = (CheckBox) findViewById(R.id.checkBoxThu);
-                repeatDays[3] = checkBox.isChecked() ? 1 : 0;
-
-                checkBox = (CheckBox) findViewById(R.id.checkBoxFri);
-                repeatDays[4] = checkBox.isChecked() ? 1 : 0;
-
-                checkBox = (CheckBox) findViewById(R.id.checkBoxSat);
-                repeatDays[5] = checkBox.isChecked() ? 1 : 0;
-
-                checkBox = (CheckBox) findViewById(R.id.checkBoxSun);
-                repeatDays[6] = checkBox.isChecked() ? 1 : 0;
-
-                //PUZZLES CHECKBOXES
-                checkBox = (CheckBox) findViewById(R.id.checkBoxMathPuzzle);
-                puzzles = checkBox.isChecked() ? puzzles += "0," : puzzles;
-                checkBox = (CheckBox) findViewById(R.id.checkBoxMemoryPuzzle);
-                puzzles = checkBox.isChecked() ? puzzles += "1," : puzzles;
-                checkBox = (CheckBox) findViewById(R.id.checkBoxPassword);
-                puzzles = checkBox.isChecked() ? puzzles += "2," : puzzles;
-
-                alarm.setTime(hour, minute);
-                alarm.setRepeatDays(repeatDays);
-                alarm.setPuzzles(puzzles);
-
-                if(id > 0)
-                {
-                    db.updateAlarm(alarm);
-                }
-                else {
-                    db.addAlarm(alarm);
-                    alarm.setId(db.getLastInsertId());
-                    //Toast.makeText(getApplicationContext(), "Adding alarm " + alarm.getId() + " to the DB.",LENGTH_SHORT).show();
-
-                }
-
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("id", alarm.getId());
-                AlarmSetter setter = new AlarmSetter(getApplicationContext());
-                setter.setAlarm(alarm);
-                setResult(Activity.RESULT_OK,returnIntent);
-                finish();
-
-            }
-
-
-            }
-        );
-
 
     }
+
+    private void saveAlarm()
+    {
+        CustomTimePicker picker = (CustomTimePicker) findViewById(R.id.timePicker2);
+        int hour = picker.getHour();
+        int minute = picker.getMinute();
+        int [] repeatDays = new int[7];
+        Alarm alarm = new Alarm();
+        String puzzles = "";
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+
+        if(id > 0)
+        {
+            alarm = db.getAlarm(id);
+            alarm.setEnabled(true);
+        }
+
+        if(ringtoneUri != null)
+        {
+            alarm.setUri(ringtoneUri);
+        }
+        else{
+            alarm.setUri(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+        }
+
+        //REPEATING DAYS CHECKBOXES
+        CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxMon);
+        repeatDays[0] = checkBox.isChecked() ? 1 : 0;
+
+        checkBox = (CheckBox) findViewById(R.id.checkBoxTue);
+        repeatDays[1] = checkBox.isChecked() ? 1 : 0;
+
+        checkBox = (CheckBox) findViewById(R.id.checkBoxWed);
+        repeatDays[2] = checkBox.isChecked() ? 1 : 0;
+
+        checkBox = (CheckBox) findViewById(R.id.checkBoxThu);
+        repeatDays[3] = checkBox.isChecked() ? 1 : 0;
+
+        checkBox = (CheckBox) findViewById(R.id.checkBoxFri);
+        repeatDays[4] = checkBox.isChecked() ? 1 : 0;
+
+        checkBox = (CheckBox) findViewById(R.id.checkBoxSat);
+        repeatDays[5] = checkBox.isChecked() ? 1 : 0;
+
+        checkBox = (CheckBox) findViewById(R.id.checkBoxSun);
+        repeatDays[6] = checkBox.isChecked() ? 1 : 0;
+
+        //PUZZLES CHECKBOXES
+        checkBox = (CheckBox) findViewById(R.id.checkBoxMathPuzzle);
+        puzzles = checkBox.isChecked() ? puzzles += "0," : puzzles;
+        checkBox = (CheckBox) findViewById(R.id.checkBoxMemoryPuzzle);
+        puzzles = checkBox.isChecked() ? puzzles += "1," : puzzles;
+        checkBox = (CheckBox) findViewById(R.id.checkBoxPassword);
+        puzzles = checkBox.isChecked() ? puzzles += "2," : puzzles;
+
+        alarm.setTime(hour, minute);
+        alarm.setRepeatDays(repeatDays);
+        alarm.setPuzzles(puzzles);
+
+        if(id > 0)
+        {
+            db.updateAlarm(alarm);
+        }
+        else {
+            db.addAlarm(alarm);
+            alarm.setId(db.getLastInsertId());
+            //Toast.makeText(getApplicationContext(), "Adding alarm " + alarm.getId() + " to the DB.",LENGTH_SHORT).show();
+
+        }
+
+        AlarmSetter setter = new AlarmSetter(getApplicationContext());
+        setter.setAlarm(alarm);
+    }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         Intent intent = getIntent();
         int id = intent.getIntExtra("id", 0);
-
+        getMenuInflater().inflate(R.menu.menu_create_alarm, menu);
 
         //If the alarm already exists
         if(id > 0)
         {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.menu_create_alarm, menu);
-            return true;
+            MenuItem deleteAction = menu.findItem(R.id.action_delete_alarm);
+            deleteAction.setVisible(true);
         }
 
-        return false;
+        return true;
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id1 = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id1 == R.id.action_delete_alarm) {
+        if (item.getItemId() == R.id.action_delete_alarm) {
             DatabaseHandler db = new DatabaseHandler(getApplicationContext());
             int id = getIntent().getIntExtra("id", 0);
             Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
@@ -173,7 +207,12 @@ public class CreateAlarm extends AppCompatActivity {
             alarmManager.cancel(alarmIntent);
             alarmIntent.cancel();
             db.deleteAlarm(id);
+            setResult(Activity.RESULT_OK);
+            finish();
+        }
 
+        else if(item.getItemId() == R.id.action_save){
+            saveAlarm();
             setResult(Activity.RESULT_OK);
             finish();
         }
@@ -181,8 +220,21 @@ public class CreateAlarm extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected  void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (resultCode == RESULT_OK) {
+            ringtoneUri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+            ringToneName.setText(RingtoneManager.getRingtone(this, ringtoneUri).getTitle(this));
+
+        }
+    }
+
+
 
 
 
 
 }
+
+

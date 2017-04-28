@@ -20,6 +20,7 @@ import java.io.IOException;
 public class AlarmReceivedActivity extends AppCompatActivity {
     private MediaPlayer mMediaPlayer;
     private boolean finishedPuzzles = false;
+    private Alarm alarm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +29,7 @@ public class AlarmReceivedActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int id = intent.getIntExtra("id", 0);
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-        Alarm alarm = db.getAlarm(id);
+        alarm = db.getAlarm(id);
         String [] puzzles = alarm.getPuzzles().split(",");
 
         playSound(this);
@@ -74,7 +75,8 @@ public class AlarmReceivedActivity extends AppCompatActivity {
 
     private void playSound(Context context) {
         mMediaPlayer = new MediaPlayer();
-        Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        Uri alert = alarm.getUri();
+
         try {
             mMediaPlayer.setDataSource(context, alert);
             AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -85,7 +87,7 @@ public class AlarmReceivedActivity extends AppCompatActivity {
                 mMediaPlayer.start();
             }
         } catch (IOException e) {
-            System.out.println("ERROR PLAYING ALARM SOUND");
+            e.printStackTrace();
         }
     }
 

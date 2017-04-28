@@ -95,8 +95,12 @@ public class MainActivity extends AppCompatActivity {
             refreshAlarmList();
         }
 
-        if (resultCode == 2 && requestCode == 3) {
+        else if (resultCode == 2 && requestCode == 3) {
             Toast.makeText(getApplicationContext(), "Error setting alarms from timetable, is your student number correct?", Toast.LENGTH_LONG).show();
+        }
+
+        else if (resultCode == 3 && requestCode == 3) {
+            Toast.makeText(getApplicationContext(), "Error setting alarms from timetable, are you connected to the internet?", Toast.LENGTH_LONG).show();
         }
 
     }//onActivityResult

@@ -1,5 +1,7 @@
 package legear.colm.ulalarmclock;
 
+import android.net.Uri;
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -18,6 +20,7 @@ public class Alarm {
     private boolean enabled;
     //A string of comma seperated values referring to the puzzles associated with this alarm 0 = math 1= memory game
     private String puzzles;
+    private Uri uri;
 
 
     public Alarm()
@@ -246,5 +249,13 @@ public class Alarm {
             alarmString += "None";
 
         return alarmString;
+    }
+
+    public Uri getUri() {
+        return uri;
+    }
+
+    public void setUri(Uri uri) {
+        this.uri = uri;
     }
 }

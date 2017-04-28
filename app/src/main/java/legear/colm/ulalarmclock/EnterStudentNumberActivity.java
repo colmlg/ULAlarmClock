@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -42,7 +44,6 @@ public class EnterStudentNumberActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spin.setAdapter(adapter);
-        spin.getSelectedItem().toString();
 
         Button okButton = (Button) findViewById(R.id.button3);
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -70,136 +71,140 @@ public class EnterStudentNumberActivity extends AppCompatActivity {
     void setAlarms(String document)
     {
         boolean atLeastOneAlarm = false;
-        Document doc = Jsoup.parse(document);
-        Element containerDiv = doc.getElementById("container");
-        Elements lectures = containerDiv.getElementsByTag("div");
-        //Time of the first lecture, monday to friday
-        int [] firstLectureTimes = {99, 99, 99, 99, 99};
 
-
-        for(Element lecture : lectures) {
-            String styleString = lecture.attr("style");
-            String[] styleSplit = styleString.split(";");
-            String[] styleComponentSplit = {};
-            int day = 0;
-            String margin = "";
-
-            for (String s : styleSplit) {
-                //Lecture Days
-                if (s.contains("left")) {
-                    styleComponentSplit = s.split(":");
-                    margin = styleComponentSplit[1];
-                    switch (margin) {
-                        case "105px":
-                            day = 0;
-                            break;
-                        case "208px":
-                            day = 1;
-                            break;
-                        case "311px":
-                            day = 2;
-                            break;
-                        case "414px":
-                            day = 3;
-                            break;
-                        case "517px":
-                            day = 4;
-                            break;
-
-                    }
-
-                }
-                //Lecture Times
-                else if (s.contains("top")) {
-                    styleComponentSplit = s.split(":");
-                    margin = styleComponentSplit[1];
-                    switch (margin) {
-                        case "28px":
-                            firstLectureTimes[day] = 9;
-                            break;
-                        case "78px":
-                            firstLectureTimes[day] = firstLectureTimes[day] > 10 ? 10 : firstLectureTimes[day];
-                            break;
-                        case "128px":
-                            firstLectureTimes[day] = firstLectureTimes[day] > 11 ? 11 : firstLectureTimes[day];
-                            break;
-                        case "178px":
-                            firstLectureTimes[day] = firstLectureTimes[day] > 12 ? 12 : firstLectureTimes[day];
-                            break;
-                        case "228px":
-                            firstLectureTimes[day] = firstLectureTimes[day] > 13 ? 13 : firstLectureTimes[day];
-                            break;
-                        case "278px":
-                            firstLectureTimes[day] = firstLectureTimes[day] > 14 ? 14 : firstLectureTimes[day];
-                            break;
-                        case "328px":
-                            firstLectureTimes[day] = firstLectureTimes[day] > 15 ? 15 : firstLectureTimes[day];
-                            break;
-                        case "378px":
-                            firstLectureTimes[day] = firstLectureTimes[day] > 16 ? 16 : firstLectureTimes[day];
-                            break;
-                        case "428px":
-                            firstLectureTimes[day] = firstLectureTimes[day] > 17 ? 17 : firstLectureTimes[day];
-                            break;
-                    }
-                }
-
-            }
-
-
-        }
-
-        //Create the alarm objects and set the alarms
-        AlarmSetter setter = new AlarmSetter(getApplicationContext());
-        int [] repeatDays;
-        Alarm alarm;
-        DatabaseHandler db = new DatabaseHandler(context);
-        for(int i= 0; i < firstLectureTimes.length; i++)
+        //If we cannot connect to the internet
+        if(document.contains("IOException"))
         {
-            repeatDays = new int[7];
-            if(firstLectureTimes[i] < 99)
-            {
-                repeatDays[i] = 1;
-                alarm = new Alarm();
-                if(offset > 0)
-                {
-                    if(offset % 1 > 0)
-                    {
-                        firstLectureTimes[i] = firstLectureTimes[i] - 1 -(int)(offset - 0.5);
-                        alarm.setTime(firstLectureTimes[i],30);
+            mPD.dismiss();
+            setResult(3);
+            finish();
+        }
+        else {
+            Document doc = Jsoup.parse(document);
+            Element containerDiv = doc.getElementById("container");
+            Elements lectures = containerDiv.getElementsByTag("div");
+            //Time of the first lecture, monday to friday
+            int[] firstLectureTimes = {99, 99, 99, 99, 99};
+
+            for (Element lecture : lectures) {
+                String styleString = lecture.attr("style");
+                String[] styleSplit = styleString.split(";");
+                String[] styleComponentSplit = {};
+                int day = 0;
+                String margin = "";
+
+                for (String s : styleSplit) {
+                    //Lecture Days
+                    if (s.contains("left")) {
+                        styleComponentSplit = s.split(":");
+                        margin = styleComponentSplit[1];
+                        switch (margin) {
+                            case "105px":
+                                day = 0;
+                                break;
+                            case "208px":
+                                day = 1;
+                                break;
+                            case "311px":
+                                day = 2;
+                                break;
+                            case "414px":
+                                day = 3;
+                                break;
+                            case "517px":
+                                day = 4;
+                                break;
+
+                        }
+
                     }
-                    else{
-                        firstLectureTimes[i] = firstLectureTimes[i] - (int)(offset);
-                        alarm.setTime(firstLectureTimes[i],0);
+                    //Lecture Times
+                    else if (s.contains("top")) {
+                        styleComponentSplit = s.split(":");
+                        margin = styleComponentSplit[1];
+                        switch (margin) {
+                            case "28px":
+                                firstLectureTimes[day] = 9;
+                                break;
+                            case "78px":
+                                firstLectureTimes[day] = firstLectureTimes[day] > 10 ? 10 : firstLectureTimes[day];
+                                break;
+                            case "128px":
+                                firstLectureTimes[day] = firstLectureTimes[day] > 11 ? 11 : firstLectureTimes[day];
+                                break;
+                            case "178px":
+                                firstLectureTimes[day] = firstLectureTimes[day] > 12 ? 12 : firstLectureTimes[day];
+                                break;
+                            case "228px":
+                                firstLectureTimes[day] = firstLectureTimes[day] > 13 ? 13 : firstLectureTimes[day];
+                                break;
+                            case "278px":
+                                firstLectureTimes[day] = firstLectureTimes[day] > 14 ? 14 : firstLectureTimes[day];
+                                break;
+                            case "328px":
+                                firstLectureTimes[day] = firstLectureTimes[day] > 15 ? 15 : firstLectureTimes[day];
+                                break;
+                            case "378px":
+                                firstLectureTimes[day] = firstLectureTimes[day] > 16 ? 16 : firstLectureTimes[day];
+                                break;
+                            case "428px":
+                                firstLectureTimes[day] = firstLectureTimes[day] > 17 ? 17 : firstLectureTimes[day];
+                                break;
+                        }
                     }
+
                 }
-                else
-                    alarm.setTime(firstLectureTimes[i],0);
 
-                alarm.setRepeatDays(repeatDays);
-                db.addAlarm(alarm);
-                alarm.setId(db.getLastInsertId());
-                setter.setAlarm(alarm);
 
-                atLeastOneAlarm = true;
             }
 
+            //Create the alarm objects and set the alarms
+            AlarmSetter setter = new AlarmSetter(getApplicationContext());
+            int[] repeatDays;
+            Alarm alarm;
+            DatabaseHandler db = new DatabaseHandler(context);
+            for (int i = 0; i < firstLectureTimes.length; i++) {
+                repeatDays = new int[7];
+                if (firstLectureTimes[i] < 99) {
+                    repeatDays[i] = 1;
+                    alarm = new Alarm();
+                    if (offset > 0) {
+                        if (offset % 1 > 0) {
+                            firstLectureTimes[i] = firstLectureTimes[i] - 1 - (int) (offset - 0.5);
+                            alarm.setTime(firstLectureTimes[i], 30);
+                        } else {
+                            firstLectureTimes[i] = firstLectureTimes[i] - (int) (offset);
+                            alarm.setTime(firstLectureTimes[i], 0);
+                        }
+                    } else
+                        alarm.setTime(firstLectureTimes[i], 0);
+
+                    alarm.setRepeatDays(repeatDays);
+                    alarm.setUri(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+                    db.addAlarm(alarm);
+                    alarm.setId(db.getLastInsertId());
+                    setter.setAlarm(alarm);
+
+                    atLeastOneAlarm = true;
+                }
+
+            }
+
+            if (mPD.isShowing())
+                mPD.dismiss();
+
+            Intent returnIntent = new Intent();
+            if (atLeastOneAlarm)
+                setResult(Activity.RESULT_OK, returnIntent);
+            else
+                setResult(2, returnIntent);
+
+            finish();
         }
-
-        if(mPD.isShowing())
-            mPD.dismiss();
-
-        Intent returnIntent = new Intent();
-        if(atLeastOneAlarm)
-            setResult(Activity.RESULT_OK,returnIntent);
-        else
-            setResult(2,returnIntent);
-        finish();
     }
 
 
     private class WebpageGetter extends AsyncTask<String, Integer, String> {
-
 
         @Override
         protected void onPreExecute() {
@@ -215,9 +220,7 @@ public class EnterStudentNumberActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... urls) {
             try {
-                String url =urls[0];
-                String returnString = Jsoup.connect(url).get().toString();
-                return returnString;
+                return Jsoup.connect(urls[0]).get().toString();
             }
             catch (IOException e) {
                 return "IOException";

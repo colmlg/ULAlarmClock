@@ -6,18 +6,26 @@
     android:layout_height="wrap_content"
     tools:context="legear.colm.ulalarmclock.CreateAlarm">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="8dp">
+
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TimePicker
+            <legear.colm.ulalarmclock.CustomTimePicker
                 android:id="@+id/timePicker2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,10 +123,10 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:id="@+id/header">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textView3"
@@ -137,7 +145,7 @@
 
                     <TableRow
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <CheckBox
                             android:id="@+id/checkBoxMathPuzzle"
@@ -160,7 +168,7 @@
 
                     <TableRow
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <CheckBox
                             android:id="@+id/checkBoxPassword"
@@ -185,36 +193,49 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:id="@+id/expandable">
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewRingtone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:text="Ringtone:"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/textViewRingtoneName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textViewChangeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:paddingRight="10dp"
+                        android:text="Change"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@android:color/black" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:elevation="3dp"
-                android:text="OK"
-                tools:layout_conversion_absoluteHeight="47dp"
-                tools:layout_conversion_absoluteWidth="384dp"
-                tools:layout_conversion_absoluteX="0dp"
-                tools:layout_conversion_absoluteY="383dp"
-                tools:layout_editor_absoluteX="148dp"
-                tools:layout_editor_absoluteY="449dp" />
-
         </LinearLayout>
     </ScrollView>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="8dp">
-
-    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
