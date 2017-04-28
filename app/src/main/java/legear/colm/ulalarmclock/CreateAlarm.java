@@ -51,6 +51,7 @@ public class CreateAlarm extends AppCompatActivity {
             ((CheckBox) findViewById(R.id.checkBoxSun)).setChecked(repeatDays[6] == 1);
             ((CheckBox) findViewById(R.id.checkBoxMathPuzzle)).setChecked(puzzles.contains("0"));
             ((CheckBox) findViewById(R.id.checkBoxMemoryPuzzle)).setChecked(puzzles.contains("1"));
+            ((CheckBox) findViewById(R.id.checkBoxPassword)).setChecked(puzzles.contains("2"));
 
         }
 
@@ -102,6 +103,8 @@ public class CreateAlarm extends AppCompatActivity {
                 puzzles = checkBox.isChecked() ? puzzles += "0," : puzzles;
                 checkBox = (CheckBox) findViewById(R.id.checkBoxMemoryPuzzle);
                 puzzles = checkBox.isChecked() ? puzzles += "1," : puzzles;
+                checkBox = (CheckBox) findViewById(R.id.checkBoxPassword);
+                puzzles = checkBox.isChecked() ? puzzles += "2," : puzzles;
 
                 alarm.setTime(hour, minute);
                 alarm.setRepeatDays(repeatDays);

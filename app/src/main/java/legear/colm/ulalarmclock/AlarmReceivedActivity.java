@@ -47,6 +47,9 @@ public class AlarmReceivedActivity extends AppCompatActivity {
                         case 1:
                             puzzleIntent = new Intent(getApplicationContext(), MemoryPuzzle.class);
                             break;
+                        case 2:
+                            puzzleIntent = new Intent(getApplicationContext(), PasswordPuzzle.class);
+                            break;
                     }
 
                     startActivityForResult(puzzleIntent, 2);

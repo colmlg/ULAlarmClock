@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
                         db.toggleAlarmActive(alarm.getId(), true);
                         AlarmSetter setter = new AlarmSetter(getContext());
                         setter.setAlarm(alarm);
+                        Log.d("COLMLG", "Set Alarm : " + alarm.getId());
 
                     }
 

@@ -163,11 +163,11 @@
                         android:layout_height="match_parent" >
 
                         <CheckBox
-                            android:id="@+id/checkBox6"
+                            android:id="@+id/checkBoxPassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="CheckBox" />
+                            android:text="Re-type Password" />
 
                         <CheckBox
                             android:id="@+id/checkBox5"
@@ -177,17 +177,6 @@
                             android:text="CheckBox" />
                     </TableRow>
 
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
-
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
-
-                    </TableRow>
                 </TableLayout>
 
             </LinearLayout>

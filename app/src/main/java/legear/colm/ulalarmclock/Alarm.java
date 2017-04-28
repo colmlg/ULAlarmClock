@@ -187,24 +187,29 @@ public class Alarm {
     public String getPuzzleString()
     {
         String puzzleString = "Puzzles: ";
-        String [] puzzleNames = {"Maths", "Memory"};
         String [] puzzlesArray = puzzles.split(",");
-        boolean hasPuzzles = false;
-        String iString = "";
 
         for(int i = 0; i < puzzlesArray.length; i++)
         {
-            iString += i;
-            if(puzzlesArray[i].equals(iString))
-            {
-                puzzleString +=  " " + puzzleNames[i];
-                hasPuzzles = true;
+            switch(puzzlesArray[i]){
+                case "0":
+                    puzzleString += "Maths  ";
+                    break;
+                case "1":
+                    puzzleString += "Memory  ";
+                    break;
+                case "2":
+                    puzzleString += "Password  ";
+                    break;
             }
-            iString = "";
         }
 
-        if(!hasPuzzles)
+        if(puzzleString.equals("Puzzles: "))
             puzzleString = "";
+        else {
+            puzzleString = puzzleString.trim();
+            puzzleString = puzzleString.replaceAll("  ", ", ");
+        }
 
         return puzzleString;
     }
