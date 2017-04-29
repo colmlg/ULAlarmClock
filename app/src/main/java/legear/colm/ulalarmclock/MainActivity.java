@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 intent = new Intent(getApplicationContext(), AlarmReceiver.class);
                 intent.putExtra("id", alarm.getId());
-                alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), alarm.getId(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), alarm.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 alarmManager.cancel(alarmIntent);
                 alarmIntent.cancel();
                 db.deleteAlarm(alarm.getId());
@@ -119,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
         alarmListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
+
+
 
 
 }

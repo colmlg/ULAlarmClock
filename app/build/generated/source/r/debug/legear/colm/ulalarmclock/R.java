@@ -3157,11 +3157,11 @@ containing a value of this type.
         public static final int center_horizontal=0x7f0e0030;
         public static final int center_vertical=0x7f0e0031;
         public static final int chains=0x7f0e0016;
-        public static final int checkBox5=0x7f0e008a;
         public static final int checkBoxFri=0x7f0e0082;
         public static final int checkBoxMathPuzzle=0x7f0e0087;
         public static final int checkBoxMemoryPuzzle=0x7f0e0088;
         public static final int checkBoxMon=0x7f0e007e;
+        public static final int checkBoxNotification=0x7f0e008a;
         public static final int checkBoxPassword=0x7f0e0089;
         public static final int checkBoxSat=0x7f0e0083;
         public static final int checkBoxSun=0x7f0e0084;

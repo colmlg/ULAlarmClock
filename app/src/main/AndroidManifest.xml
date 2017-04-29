@@ -25,7 +25,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".AlarmReceiver"/>
+        <receiver android:name=".AlarmReceiver" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -41,7 +42,10 @@
         <activity android:name=".AlarmReceivedActivity" />
         <activity android:name=".MemoryPuzzle" />
         <activity android:name=".EnterStudentNumberActivity" />
-        <activity android:name=".PasswordPuzzle"></activity>
+        <activity android:name=".PasswordPuzzle" />
+        <receiver android:name=".SetNotificationReceiver"></receiver>
+        <service android:name=".StopAlarmService"/>
+
     </application>
 
 </manifest>

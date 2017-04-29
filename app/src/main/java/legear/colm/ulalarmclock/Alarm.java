@@ -18,7 +18,7 @@ public class Alarm {
     private int [] repeatDays;
     public int id = 0;
     private boolean enabled;
-    //A string of comma seperated values referring to the puzzles associated with this alarm 0 = math 1= memory game
+    //A string of comma seperated values referring to the puzzles associated with this alarm 0 = math 1= memory game 2=password
     private String puzzles;
     private Uri uri;
 
@@ -136,6 +136,12 @@ public class Alarm {
         return id;
     }
 
+
+
+    public int[] getRepeatDays() { return  repeatDays;}
+
+    public void setRepeatDays(int[] repeatDays) {this.repeatDays = repeatDays;}
+
     public String getEmailAddress()
     {
         return emailAddress;
@@ -144,15 +150,6 @@ public class Alarm {
     public String getPhoneNumber()
     {
         return phoneNumber;
-    }
-
-    public int[] getRepeatDays() { return  repeatDays;}
-
-    public void setRepeatDays(int[] repeatDays) {this.repeatDays = repeatDays;}
-
-    public void setAlarmTime(Calendar alarmTime)
-    {
-        this.alarmTime = alarmTime;
     }
 
     public void setEmailAddress(String emailAddress)
@@ -203,6 +200,9 @@ public class Alarm {
                     break;
                 case "2":
                     puzzleString += "Password  ";
+                    break;
+                case "3":
+                    puzzleString += "Notification  ";
                     break;
             }
         }

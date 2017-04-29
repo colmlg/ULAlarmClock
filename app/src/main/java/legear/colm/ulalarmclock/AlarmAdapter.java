@@ -83,7 +83,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
                         Intent intent = new Intent(getContext(), AlarmReceiver.class);
                         intent.putExtra("id", alarm.getId());
                         alarmManager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
-                        alarmIntent = PendingIntent.getBroadcast(getContext(), alarm.getId(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                        alarmIntent = PendingIntent.getBroadcast(getContext(), alarm.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                         alarmManager.cancel(alarmIntent);
                         alarmIntent.cancel();

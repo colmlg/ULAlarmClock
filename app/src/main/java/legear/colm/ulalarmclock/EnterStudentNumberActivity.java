@@ -181,6 +181,8 @@ public class EnterStudentNumberActivity extends AppCompatActivity {
 
                     alarm.setRepeatDays(repeatDays);
                     alarm.setUri(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+                    if(alarm.getUri() == null)
+                        alarm.setUri(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
                     db.addAlarm(alarm);
                     alarm.setId(db.getLastInsertId());
                     setter.setAlarm(alarm);

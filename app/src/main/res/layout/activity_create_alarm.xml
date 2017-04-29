@@ -178,11 +178,11 @@
                             android:text="Re-type Password" />
 
                         <CheckBox
-                            android:id="@+id/checkBox5"
+                            android:id="@+id/checkBoxNotification"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="CheckBox" />
+                            android:text="'Are you awake?' Notification" />
                     </TableRow>
 
                 </TableLayout>
@@ -193,45 +193,38 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/textViewRingtone"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="Ringtone:"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/textViewRingtone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:text="Ringtone:"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/textViewRingtoneName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1" />
 
-                    <TextView
-                        android:id="@+id/textViewRingtoneName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:id="@+id/textViewChangeButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:paddingRight="10dp"
-                        android:text="Change"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@android:color/black" />
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/textViewChangeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:paddingRight="10dp"
+                    android:text="Change"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@android:color/black" />
 
             </LinearLayout>
 

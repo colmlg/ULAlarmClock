@@ -4,9 +4,13 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
@@ -23,16 +27,16 @@ public class AlarmSetter {
     AlarmSetter(Context context)
     {
         this.context = context;
-        alarmManager = (AlarmManager)context.getSystemService(context.ALARM_SERVICE);
+        alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
     }
 
     public void setAlarm(Alarm alarm)
     {
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.putExtra("id", alarm.getId());
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, alarm.getId(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, alarm.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Calendar currentTime = new GregorianCalendar();
-
+        alarm.getCalendar().set(Calendar.SECOND, 0);
 
         if(!alarm.isRepeating())
         {
@@ -40,11 +44,19 @@ public class AlarmSetter {
             {
                 alarm.getCalendar().add(Calendar.DAY_OF_YEAR, 1);
             }
-            alarmManager.set(AlarmManager.RTC_WAKEUP, alarm.getCalendar().getTimeInMillis(), alarmIntent);
+            Date date = new Date(alarm.getCalendar().getTimeInMillis());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+            Log.d("ULAlarm", "Alarm " + alarm.getId() + " set for " + sdf.format(date));
+            Intent editIntent = new Intent(context, CreateAlarm.class);
+            editIntent.putExtra("id", alarm.getId());
+            PendingIntent pendingEditIntent = PendingIntent.getBroadcast(context, alarm.getId() + 1000, editIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+           // alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarm.getCalendar().getTimeInMillis(), alarmIntent);
+            AlarmManager.AlarmClockInfo info = new AlarmManager.AlarmClockInfo(alarm.getCalendar().getTimeInMillis(),pendingEditIntent);
+            alarmManager.setAlarmClock(info, alarmIntent);
             long timeDiff = alarm.getCalendar().getTimeInMillis() - currentTime.getTimeInMillis();
             Toast.makeText(context, "Alarm will go off in " + TimeUnit.MILLISECONDS.toHours(timeDiff) + " hours " + TimeUnit.MILLISECONDS.toMinutes(timeDiff) % TimeUnit.HOURS.toMinutes(1) + " minutes.",LENGTH_LONG).show();
         }
-
         else {
             int [] repeatDays = alarm.getRepeatDays();
             long timeDiff = 0;
@@ -52,7 +64,6 @@ public class AlarmSetter {
             alarmCalendar.setTimeInMillis(System.currentTimeMillis());
             boolean future = false;
             long smallestTimeDiff = System.currentTimeMillis();
-
             for (int i = 0; i < repeatDays.length; i++) {
                 if (repeatDays[i] == 1) {
 
@@ -62,20 +73,13 @@ public class AlarmSetter {
                     if(i == 6)
                         alarmCalendar.set(Calendar.DAY_OF_WEEK,1);
 
-
                     if(alarmCalendar.getTimeInMillis() < System.currentTimeMillis()) {
                         alarmCalendar.add(Calendar.WEEK_OF_YEAR, 1);
                         future = true;
                     }
-
-
                     timeDiff = alarmCalendar.getTimeInMillis() - System.currentTimeMillis();
                     smallestTimeDiff = smallestTimeDiff > timeDiff ? timeDiff : smallestTimeDiff;
-
                     alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY * 7, alarmIntent);
-
-
-
                     if(future)
                     {
                         alarmCalendar.add(Calendar.WEEK_OF_YEAR, -1);
@@ -83,10 +87,8 @@ public class AlarmSetter {
                     }
                 }
             }
-
             Toast.makeText(context, "Alarm will go off in " + TimeUnit.MILLISECONDS.toHours(smallestTimeDiff) + " hours " + TimeUnit.MILLISECONDS.toMinutes(smallestTimeDiff) % TimeUnit.HOURS.toMinutes(1) + " minutes.", LENGTH_LONG).show();
-
-
         }
+        Log.d("ULAlarm" , "Set alarm " + alarm.getId());
     }
 }

@@ -45,6 +45,8 @@ public class CreateAlarm extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Create Alarm");
+
         setContentView(R.layout.activity_create_alarm);
         toneContext = this;
         
@@ -78,6 +80,7 @@ public class CreateAlarm extends AppCompatActivity {
         //If the alarm already exists
         if(id > 0)
         {
+            getSupportActionBar().setTitle("Edit Alarm");
             Alarm alarm = db.getAlarm(id);
             int [] repeatDays = alarm.getRepeatDays();
             String puzzles = alarm.getPuzzles();
@@ -93,6 +96,7 @@ public class CreateAlarm extends AppCompatActivity {
             ((CheckBox) findViewById(R.id.checkBoxMathPuzzle)).setChecked(puzzles.contains("0"));
             ((CheckBox) findViewById(R.id.checkBoxMemoryPuzzle)).setChecked(puzzles.contains("1"));
             ((CheckBox) findViewById(R.id.checkBoxPassword)).setChecked(puzzles.contains("2"));
+            ((CheckBox) findViewById(R.id.checkBoxNotification)).setChecked(puzzles.contains("3"));
             ringToneName.setText(RingtoneManager.getRingtone(this, alarm.getUri()).getTitle(this).replace("Default ringtone (", "").replace(")",""));
 
         }
@@ -123,6 +127,8 @@ public class CreateAlarm extends AppCompatActivity {
         }
         else{
             alarm.setUri(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+            if(alarm.getUri() == null)
+                alarm.setUri(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
         }
 
         //REPEATING DAYS CHECKBOXES
@@ -154,6 +160,8 @@ public class CreateAlarm extends AppCompatActivity {
         puzzles = checkBox.isChecked() ? puzzles += "1," : puzzles;
         checkBox = (CheckBox) findViewById(R.id.checkBoxPassword);
         puzzles = checkBox.isChecked() ? puzzles += "2," : puzzles;
+        checkBox = (CheckBox) findViewById(R.id.checkBoxNotification);
+        puzzles = checkBox.isChecked() ? puzzles += "3," : puzzles;
 
         alarm.setTime(hour, minute);
         alarm.setRepeatDays(repeatDays);
@@ -166,8 +174,6 @@ public class CreateAlarm extends AppCompatActivity {
         else {
             db.addAlarm(alarm);
             alarm.setId(db.getLastInsertId());
-            //Toast.makeText(getApplicationContext(), "Adding alarm " + alarm.getId() + " to the DB.",LENGTH_SHORT).show();
-
         }
 
         AlarmSetter setter = new AlarmSetter(getApplicationContext());
@@ -203,7 +209,7 @@ public class CreateAlarm extends AppCompatActivity {
             int id = getIntent().getIntExtra("id", 0);
             Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
             intent.putExtra("id", id);
-            alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.cancel(alarmIntent);
             alarmIntent.cancel();
             db.deleteAlarm(id);
@@ -229,11 +235,6 @@ public class CreateAlarm extends AppCompatActivity {
 
         }
     }
-
-
-
-
-
 
 }
 
