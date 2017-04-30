@@ -4,16 +4,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * A puzzle that is started when an alarm goes off. User must solve a simple math equation to stop the alarm.
+ */
 public class MathPuzzle extends AppCompatActivity {
-    String [][] puzzles = {{"3 * 24 = ?", "72"}, {"27 + 7 = ?", "34"}, {"48 * 2 = ?", "96"}, {"128 - 42 - 3 = ?", "83"}};
-    String [] puzzle;
+    private String [][] puzzles = {{"3 * 24 = ?", "72"}, {"27 + 7 = ?", "34"}, {"48 * 2 = ?", "96"}, {"128 - 42 - 3 = ?", "83"}, {"4 * 3 * 5 = ?", "60"},
+                            {"4 * 3 * 5 = ?", "60"}, {"4 * 12 + 32 = ?", "80"}, {"4 * 3 * 5 = ?", "60"}};
+    private String [] puzzle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

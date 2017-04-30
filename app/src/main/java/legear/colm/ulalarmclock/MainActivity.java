@@ -21,6 +21,10 @@ import java.util.ArrayList;
 
 import static android.widget.Toast.LENGTH_LONG;
 
+/**
+ * The main activity. Lists all alarms.
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Alarm> listAlarms = new ArrayList<Alarm>();
@@ -90,12 +94,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        /*
         if(resultCode == Activity.RESULT_OK){
             refreshAlarmList();
         }
+         */
 
-        else if (resultCode == 2 && requestCode == 3) {
+        if (resultCode == 2 && requestCode == 3) {
             Toast.makeText(getApplicationContext(), "Error setting alarms from timetable, is your student number correct?", Toast.LENGTH_LONG).show();
         }
 
@@ -118,6 +123,13 @@ public class MainActivity extends AppCompatActivity {
         adapter = new AlarmAdapter(this,listAlarms);
         alarmListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        refreshAlarmList();
     }
 
 

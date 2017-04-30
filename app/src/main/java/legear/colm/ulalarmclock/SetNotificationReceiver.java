@@ -7,13 +7,21 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
+import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
+import static android.content.Context.POWER_SERVICE;
+
+/**
+ * Displays a notification for the notification puzzle and sets an alarm that will go off in 5 minutes.
+ */
 
 public class SetNotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
         Log.d("ULAlarm", "Received Set Notification Broadcast");
         int id = intent.getIntExtra("id",0) + 5000; //+5000 for the notification alarm, as we dont want to interfere with repeating alarms
 

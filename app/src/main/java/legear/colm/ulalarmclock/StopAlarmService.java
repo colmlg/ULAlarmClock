@@ -8,22 +8,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+/**
+ * Stops the alarm for the notification puzzle when the notification is clicked
+ */
 public class StopAlarmService extends IntentService {
 
-    /**
-     * A constructor is required, and must call the super IntentService(String)
-     * constructor with a name for the worker thread.
-     */
+
     public StopAlarmService() {
         super("StopAlarmService");
         Log.d("ULAlarm", "Stop alarm service created.");
     }
 
-    /**
-     * The IntentService calls this method from the default worker thread with
-     * the intent that started the service. When this method returns, IntentService
-     * stops the service, as appropriate.
-     */
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.d("ULAlarm", "Started stop alarm service.");

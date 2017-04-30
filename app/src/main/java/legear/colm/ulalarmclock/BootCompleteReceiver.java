@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 /**
  * Created by colml on 27/04/2017.
+ * Sets alarms on device boot.
  */
 
 public class BootCompleteReceiver extends BroadcastReceiver {

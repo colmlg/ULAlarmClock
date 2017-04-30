@@ -29,6 +29,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 
 /**
  * Created by colml on 03/04/2017.
+ * Adapter for the listview.
  */
 
 public class AlarmAdapter extends ArrayAdapter<Alarm>{

@@ -8,17 +8,16 @@ import java.util.GregorianCalendar;
 
 /**
  * Created by colml on 28/03/2017.
+ * A Class representing an alarm
  */
 
 public class Alarm {
 
     private Calendar alarmTime;
-    private String emailAddress;
-    private String phoneNumber;
     private int [] repeatDays;
     public int id = 0;
     private boolean enabled;
-    //A string of comma seperated values referring to the puzzles associated with this alarm 0 = math 1= memory game 2=password
+    //A string of comma seperated values referring to the puzzles associated with this alarm 0 = math 1= memory game 2=password 3=Notification
     private String puzzles;
     private Uri uri;
 
@@ -37,17 +36,9 @@ public class Alarm {
     public Alarm(Calendar alarmTime)
     {
         this.alarmTime = alarmTime;
-        emailAddress = "";
-        phoneNumber = "";
         repeatDays = new int[7];
     }
 
-    public Alarm(Calendar alarmTime, String emailAddress, String phoneNumber)
-    {
-        this.alarmTime = alarmTime;
-        this.emailAddress = emailAddress;
-        this.phoneNumber = phoneNumber;
-    }
 
     public Alarm(Calendar alarmTime, int [] repeatDays)
     {
@@ -107,10 +98,6 @@ public class Alarm {
         return  hourString + ":" + minuteString;
     }
 
-    public void setTimeInMilis(long timeInMilis)
-    {
-        alarmTime.setTimeInMillis(timeInMilis);
-    }
 
     public void setTime(String time)
     {
@@ -141,26 +128,6 @@ public class Alarm {
     public int[] getRepeatDays() { return  repeatDays;}
 
     public void setRepeatDays(int[] repeatDays) {this.repeatDays = repeatDays;}
-
-    public String getEmailAddress()
-    {
-        return emailAddress;
-    }
-
-    public String getPhoneNumber()
-    {
-        return phoneNumber;
-    }
-
-    public void setEmailAddress(String emailAddress)
-    {
-        this.emailAddress = emailAddress;
-    }
-
-    public void setPhoneNumber(String phoneNumber)
-    {
-        this.phoneNumber = phoneNumber;
-    }
 
     public String getRepeatString()
     {

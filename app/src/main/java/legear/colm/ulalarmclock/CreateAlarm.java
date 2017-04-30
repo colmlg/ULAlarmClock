@@ -32,6 +32,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Activity to create and edit alarms.
+ */
 public class CreateAlarm extends AppCompatActivity {
 
     private PendingIntent alarmIntent;

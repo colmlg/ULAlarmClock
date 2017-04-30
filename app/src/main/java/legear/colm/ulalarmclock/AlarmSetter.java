@@ -18,6 +18,7 @@ import static android.widget.Toast.LENGTH_LONG;
 
 /**
  * Created by colml on 26/04/2017.
+ * Sets an alarm clock.
  */
 
 public class AlarmSetter {
@@ -47,13 +48,7 @@ public class AlarmSetter {
             Date date = new Date(alarm.getCalendar().getTimeInMillis());
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
             Log.d("ULAlarm", "Alarm " + alarm.getId() + " set for " + sdf.format(date));
-            Intent editIntent = new Intent(context, CreateAlarm.class);
-            editIntent.putExtra("id", alarm.getId());
-            PendingIntent pendingEditIntent = PendingIntent.getBroadcast(context, alarm.getId() + 1000, editIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-           // alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarm.getCalendar().getTimeInMillis(), alarmIntent);
-            AlarmManager.AlarmClockInfo info = new AlarmManager.AlarmClockInfo(alarm.getCalendar().getTimeInMillis(),pendingEditIntent);
-            alarmManager.setAlarmClock(info, alarmIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarm.getCalendar().getTimeInMillis(), alarmIntent);
             long timeDiff = alarm.getCalendar().getTimeInMillis() - currentTime.getTimeInMillis();
             Toast.makeText(context, "Alarm will go off in " + TimeUnit.MILLISECONDS.toHours(timeDiff) + " hours " + TimeUnit.MILLISECONDS.toMinutes(timeDiff) % TimeUnit.HOURS.toMinutes(1) + " minutes.",LENGTH_LONG).show();
         }

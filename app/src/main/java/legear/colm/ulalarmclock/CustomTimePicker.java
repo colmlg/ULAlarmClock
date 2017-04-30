@@ -8,6 +8,8 @@ import android.widget.TimePicker;
 
 /**
  * Created by colml on 28/04/2017.
+ * Custom time picker widget so the scrollview does not interfere with time selection.
+ * Some code taken from  https://stackoverflow.com/questions/14354006/scrollview-fighting-with-scroll-of-timepicker-timepicker-not-scrolling-as-a-res
  */
 
 public class CustomTimePicker extends TimePicker {

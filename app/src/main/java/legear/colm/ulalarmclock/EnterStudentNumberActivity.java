@@ -25,6 +25,10 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
+/**
+ * Activity that allows users to set their alarms automatically from the UL timetable by entering their student number.
+ * Uses the JSoup library to get information and parse HTML.
+ */
 public class EnterStudentNumberActivity extends AppCompatActivity {
     ProgressDialog mPD;
     double offset;
@@ -44,16 +48,18 @@ public class EnterStudentNumberActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spin.setAdapter(adapter);
+        spin.setSelection(2);
 
         Button okButton = (Button) findViewById(R.id.button3);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextView tvInvalid = (TextView) findViewById(R.id.textViewInvalid);
-                int studentNumber = Integer.parseInt(et.getText().toString());
-                if (studentNumber < 9999999 || studentNumber > 99999999) {
+
+                if (et.getText().toString().length() > 8 || et.getText().toString().length() < 7) {
                     tvInvalid.setVisibility(View.VISIBLE);
                 } else {
+                    int studentNumber = Integer.parseInt(et.getText().toString());
                     tvInvalid.setVisibility(View.INVISIBLE);
 
                     String offSet = spin.getSelectedItem().toString();

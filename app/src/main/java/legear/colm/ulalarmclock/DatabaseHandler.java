@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Created by colml on 28/03/2017.
+ * A database handler for our database.
  */
 
 class DatabaseHandler extends SQLiteOpenHelper {

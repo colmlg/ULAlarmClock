@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * A puzzle that is started when an alarm goes off. User must re-type a password to stop the alarm.
+ */
 public class PasswordPuzzle extends AppCompatActivity {
     private String password;
     @Override
