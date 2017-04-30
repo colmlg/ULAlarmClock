@@ -29,11 +29,6 @@ public class CustomTimePicker extends TimePicker {
         super(context, attrs, defStyleAttr);
     }
 
-    public CustomTimePicker(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
-    {
-        super(context, attrs, defStyleAttr,defStyleRes);
-    }
-
 
     //https://stackoverflow.com/questions/14354006/scrollview-fighting-with-scroll-of-timepicker-timepicker-not-scrolling-as-a-res
     @Override

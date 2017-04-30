@@ -7,9 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,14 +25,14 @@ public class AlarmReceivedActivity extends AppCompatActivity {
     private Alarm alarm;
     private boolean notificationPuzzle;
     private int globalRequestCode = 1;
-    private int id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_received);
 
         Intent intent = getIntent();
-        id = intent.getIntExtra("id", 0);
+        int id = intent.getIntExtra("id", 0);
         Log.d("ULAlarm", "Started activity for alarm " + id);
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
@@ -125,9 +123,6 @@ public class AlarmReceivedActivity extends AppCompatActivity {
 
             stopActivity();
         }
-        if (resultCode == Activity.RESULT_CANCELED) {
-
-        }
 
     }//onActivityResult
 
@@ -143,8 +138,8 @@ public class AlarmReceivedActivity extends AppCompatActivity {
         intent.putExtra("id", alarm.getId());
         PendingIntent alarmIntent = PendingIntent.getBroadcast(this, alarm.getId() + 2000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         //alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 300000, alarmIntent);
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 30000, alarmIntent);
-        Log.d("ULAlarm", "Notification will go off in : " + 30000 + "ms");
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 300000, alarmIntent);
+        Log.d("ULAlarm", "Notification will go off in : " + 300000 + "ms");
     }
 
     private void stopActivity()

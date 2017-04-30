@@ -7,11 +7,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
-import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-
-import static android.content.Context.POWER_SERVICE;
 
 /**
  * Displays a notification for the notification puzzle and sets an alarm that will go off in 5 minutes.
@@ -49,8 +46,8 @@ public class SetNotificationReceiver extends BroadcastReceiver {
         PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, id, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Log.d("ULAlarm", "Started notification alarm " + id);
         //alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 300000, alarmPendingIntent);
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 30000, alarmPendingIntent);
-        Log.d("ULAlarm", "Alarm will go off in : " + 30000 + "ms");
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 300000, alarmPendingIntent);
+        Log.d("ULAlarm", "Alarm will go off in : " + 300000 + "ms");
     }
 
 

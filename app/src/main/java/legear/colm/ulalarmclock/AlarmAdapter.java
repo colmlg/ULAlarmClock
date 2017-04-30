@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,32 +15,23 @@ import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.concurrent.TimeUnit;
-
 import static android.content.Context.ALARM_SERVICE;
 import static android.support.v4.app.ActivityCompat.startActivityForResult;
-import static android.support.v4.content.ContextCompat.startActivity;
-import static android.widget.Toast.LENGTH_LONG;
-import static android.widget.Toast.LENGTH_SHORT;
 
 /**
  * Created by colml on 03/04/2017.
  * Adapter for the listview.
  */
 
-public class AlarmAdapter extends ArrayAdapter<Alarm>{
+class AlarmAdapter extends ArrayAdapter<Alarm>{
 
     private Context context;
     private PendingIntent alarmIntent;
     private AlarmManager alarmManager;
 
 
-    public AlarmAdapter(Context context, ArrayList<Alarm> alarms) {
+    AlarmAdapter(Context context, ArrayList<Alarm> alarms) {
         super(context, 0, alarms);
         this.context = context;
         //Set up the alarm manager
@@ -49,7 +41,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm>{
 
     @Override
     @NonNull
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @Nullable ViewGroup  parent) {
         final DatabaseHandler db = new DatabaseHandler(getContext());
         // Get the data item for this position
         final Alarm alarm = db.getAlarm(getItem(position).getId());

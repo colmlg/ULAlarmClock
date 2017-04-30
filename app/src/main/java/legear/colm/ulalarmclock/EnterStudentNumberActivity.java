@@ -8,15 +8,12 @@ import android.media.RingtoneManager;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -95,9 +92,9 @@ public class EnterStudentNumberActivity extends AppCompatActivity {
             for (Element lecture : lectures) {
                 String styleString = lecture.attr("style");
                 String[] styleSplit = styleString.split(";");
-                String[] styleComponentSplit = {};
+                String[] styleComponentSplit;
                 int day = 0;
-                String margin = "";
+                String margin;
 
                 for (String s : styleSplit) {
                     //Lecture Days

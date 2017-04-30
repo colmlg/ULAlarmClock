@@ -4,16 +4,13 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
-
 import static android.widget.Toast.LENGTH_LONG;
 
 /**
@@ -21,7 +18,7 @@ import static android.widget.Toast.LENGTH_LONG;
  * Sets an alarm clock.
  */
 
-public class AlarmSetter {
+class AlarmSetter {
     private AlarmManager alarmManager;
     private Context context;
 
@@ -54,7 +51,7 @@ public class AlarmSetter {
         }
         else {
             int [] repeatDays = alarm.getRepeatDays();
-            long timeDiff = 0;
+            long timeDiff;
             GregorianCalendar alarmCalendar = new GregorianCalendar();
             alarmCalendar.setTimeInMillis(System.currentTimeMillis());
             boolean future = false;

@@ -4,16 +4,11 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.PowerManager;
 import android.util.Log;
-import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import static android.content.Context.POWER_SERVICE;
 import static android.support.v4.content.ContextCompat.startActivity;
-import static java.security.AccessController.getContext;
+
 
 /**
  * Created by colml on 04/04/2017.

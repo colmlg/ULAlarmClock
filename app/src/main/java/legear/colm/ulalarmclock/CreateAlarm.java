@@ -5,39 +5,22 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Activity to create and edit alarms.
  */
 public class CreateAlarm extends AppCompatActivity {
 
-    private PendingIntent alarmIntent;
     private AlarmManager alarmManager;
     Context toneContext;
     Uri ringtoneUri;
@@ -48,6 +31,7 @@ public class CreateAlarm extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         getSupportActionBar().setTitle("Create Alarm");
 
         setContentView(R.layout.activity_create_alarm);
@@ -212,7 +196,7 @@ public class CreateAlarm extends AppCompatActivity {
             int id = getIntent().getIntExtra("id", 0);
             Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
             intent.putExtra("id", id);
-            alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.cancel(alarmIntent);
             alarmIntent.cancel();
             db.deleteAlarm(id);

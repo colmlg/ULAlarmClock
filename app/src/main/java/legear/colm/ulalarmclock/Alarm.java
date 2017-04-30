@@ -1,8 +1,6 @@
 package legear.colm.ulalarmclock;
 
 import android.net.Uri;
-
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 

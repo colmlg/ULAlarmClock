@@ -1,9 +1,7 @@
 package legear.colm.ulalarmclock;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,12 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import java.io.IOException;
-import java.sql.Time;
 import java.util.ArrayList;
-
-import static android.widget.Toast.LENGTH_LONG;
 
 /**
  * The main activity. Lists all alarms.
@@ -30,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Alarm> listAlarms = new ArrayList<Alarm>();
     private AlarmAdapter adapter;
     private DatabaseHandler db;
-    private int i = 0;
     private ListView alarmListView;
     private AlarmManager alarmManager;
 
