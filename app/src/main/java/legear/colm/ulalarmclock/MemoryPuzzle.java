@@ -76,7 +76,6 @@ public class MemoryPuzzle extends AppCompatActivity {
     private void setColorChange() {
         textViewCounter = 0;
         timer = 1000;
-        Log.d("ULAlarm", correctPattern);
         for (counter=0 ; counter < pattern.length; counter++) {
             int tempCounter = counter;
             final AnimationDrawable drawable = new AnimationDrawable();
@@ -113,5 +112,9 @@ public class MemoryPuzzle extends AppCompatActivity {
             correctPattern += i;
         }
         return correctPattern;
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }
