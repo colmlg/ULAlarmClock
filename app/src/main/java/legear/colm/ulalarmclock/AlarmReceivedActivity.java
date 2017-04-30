@@ -99,13 +99,10 @@ public class AlarmReceivedActivity extends AppCompatActivity {
 
         try {
             mMediaPlayer.setDataSource(context, alert);
-            AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-            if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
-                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
-                mMediaPlayer.setLooping(true);
-                mMediaPlayer.prepare();
-                mMediaPlayer.start();
-            }
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
+            mMediaPlayer.setLooping(true);
+            mMediaPlayer.prepare();
+            mMediaPlayer.start();
         } catch (IOException e) {
             e.printStackTrace();
         }

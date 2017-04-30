@@ -64,8 +64,6 @@ class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_TUESDAY + " BOOLEAN," + KEY_WEDNESDAY + " BOOLEAN," + KEY_THURSDAY + " BOOLEAN,"
                 + KEY_FRIDAY + " BOOLEAN," + KEY_SATURDAY + " BOOLEAN," + KEY_SUNDAY + " BOOLEAN" + ")";
         db.execSQL(CREATE_ALARMREPEATDAYS_TABLE);
-
-        //String CREATE_TABLE_MATH_PUZZLES = "CREATE TABLE " + TABLE_MATH_PUZZLES + "(" + KEY_QUESTION + " TEXT," + KEY_ANSWER + " TEXT"
     }
 
     public void addAlarm(Alarm alarm)
