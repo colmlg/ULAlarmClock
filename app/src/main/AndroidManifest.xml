@@ -37,11 +37,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateAlarm" />
-        <activity android:name=".MathPuzzle" />
+        <activity android:name=".MathPuzzle"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
         <activity android:name=".AlarmReceivedActivity" />
-        <activity android:name=".MemoryPuzzle" />
+        <activity android:name=".MemoryPuzzle"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
         <activity android:name=".EnterStudentNumberActivity" />
-        <activity android:name=".PasswordPuzzle" />
+        <activity android:name=".PasswordPuzzle"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
         <receiver android:name=".SetNotificationReceiver"></receiver>
         <service android:name=".StopAlarmService"/>
 
