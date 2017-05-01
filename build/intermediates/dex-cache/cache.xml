@@ -2,40 +2,67 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="C:\Users\colml\.android\build-cache\7f3f93986023760efc0a83810d8c1690bf47858b\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
-        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_9feeb395c4109734deba832926a7742480b340e6\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
+        is-multidex="false"
         jar="C:\Users\colml\.android\build-cache\5fbb9f3d7cfbc3f7c0a4e390386eaf223fb34d86\output\jars\classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
-        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_77fb6129c3385b900077db4972b0eec67491d8bf\classes.dex" />
+        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\pre-dexed\debug\classes_77fb6129c3385b900077db4972b0eec67491d8bf.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\colml\.android\build-cache\9f02b04b6696878f3dbb59a2a40c2cb2b5ae19f1\output\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\colml\.android\build-cache\3ac4ab4c1dd2ac9d88158881ce14d4ce83ca3ce6\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="c9649557905bf7a80fca9e0d54cbcb7662627860">
-        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_a94beaadd0f620d80fc0e03af4c7a43d184600d7\classes.dex" />
+        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
+        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\pre-dexed\debug\classes_9baca95bae6c9d5eb09413a878a2d81a327b3a3f.jar" />
     </item>
     <item
-        is-multidex="true"
+        is-multidex="false"
         jar="C:\Users\colml\.android\build-cache\e95e8cc4cef263c070844edd83146ad948cbe769\output\jars\classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="cd7951e04cfb9a8bf008d544a478d9a8d8192d38">
-        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_b6ad77f57b263fbb54d9d29b080d2b5b82dd3cee\classes.dex" />
+        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\pre-dexed\debug\classes_b6ad77f57b263fbb54d9d29b080d2b5b82dd3cee.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\colml\.android\build-cache\7f3f93986023760efc0a83810d8c1690bf47858b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
+        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\pre-dexed\debug\classes_9feeb395c4109734deba832926a7742480b340e6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\colml\.android\build-cache\9f02b04b6696878f3dbb59a2a40c2cb2b5ae19f1\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c9649557905bf7a80fca9e0d54cbcb7662627860">
+        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\pre-dexed\debug\classes_a94beaadd0f620d80fc0e03af4c7a43d184600d7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\colml\.android\build-cache\27a5074d41b55b5076c60d202d53d1507137a286\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7113302c965566b66df46c6ca75ea301576114a5">
+        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\pre-dexed\debug\classes_0a30a7d5ea5874ec3c93674f0e39ca9738f9bd8b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\libs\jsoup-1.10.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="61f84a97f1a4f5905547b8b74afff8dc93f4cfce">
+        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\pre-dexed\debug\jsoup-1.10.2_282a2f4dc5985e4dbecc73d434a9cfc5a2d3b3ab.jar" />
     </item>
     <item
         is-multidex="true"
@@ -47,6 +74,15 @@
         <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_cad8da99fe28b3556193dbbac7b29c64070ecf85\classes.dex" />
     </item>
     <item
+        is-multidex="false"
+        jar="C:\Users\colml\.android\build-cache\5c7e3a024aa8db13fe9f1ae9916a80da3a347a78\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\pre-dexed\debug\classes_8a7c3b625efb89a3da3bf98213c49f848f6dd4db.jar" />
+    </item>
+    <item
         is-multidex="true"
         jar="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\libs\jsoup-1.10.2.jar"
         jumboMode="true"
@@ -56,13 +92,31 @@
         <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\2\jsoup-1.10.2_282a2f4dc5985e4dbecc73d434a9cfc5a2d3b3ab\classes.dex" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\colml\.android\build-cache\f84836f7c4433fc35826d195d4bce539f6d32976\output\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\colml\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.1.1\support-annotations-25.1.1.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
-        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_bd3b9837a7870f6173080ad22ab6f98122b505fd\classes.dex" />
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\pre-dexed\debug\support-annotations-25.1.1_a0eb5305e93bd6441e1291605452b67e6bcc61e3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\colml\.android\build-cache\c169523a8a169f1c8592635e2f4929993ca45831\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\pre-dexed\debug\classes_2b27a6c3db14ee8a2fc8990663bd6214ee4f3692.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\colml\AppData\Local\Android\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.1\constraint-layout-solver-1.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1ad79631209e77b0a2730fc112b4cc0c66a95132">
+        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\pre-dexed\debug\constraint-layout-solver-1.0.1_29f01db7a1f11247d3456a801406c7491150f3ac.jar" />
     </item>
     <item
         is-multidex="true"
@@ -74,67 +128,49 @@
         <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_adaa79a25e4f0dc988c952d41d594e8d3abf6c5c\classes.dex" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\colml\.android\build-cache\5c7e3a024aa8db13fe9f1ae9916a80da3a347a78\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
-        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_8a7c3b625efb89a3da3bf98213c49f848f6dd4db\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\colml\.android\build-cache\c169523a8a169f1c8592635e2f4929993ca45831\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_2b27a6c3db14ee8a2fc8990663bd6214ee4f3692\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\colml\.android\build-cache\8746584f20520429fd89d991baa73a430c00ccfa\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
-        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_4b7a23db697f0635830009ad972bae2016691281\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\colml\.android\build-cache\564dc9c52b3de6ffce309efd5f8b140704c212b3\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
-        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ad00ccd7ca84fb90405094bae9215c3a489ea29b\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\colml\.android\build-cache\f274ee6ccccdc6f77ee0e58968b4a729e89fbbe9\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
-        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_2698c1ea4f7d83f356f9dfc91d36fce151472f9c\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\colml\.android\build-cache\3ac4ab4c1dd2ac9d88158881ce14d4ce83ca3ce6\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
-        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_9baca95bae6c9d5eb09413a878a2d81a327b3a3f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
+        is-multidex="false"
         jar="C:\Users\colml\.android\build-cache\bbb9a4151faa2bbca091dc12d242bad6cab8f916\output\jars\classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="15b049fedbd8e3926bf99d9e45dfc9b2a1043bb9">
-        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_6f9b6020b0cfcefcd64b92891d2e16257fb63965\classes.dex" />
+        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\pre-dexed\debug\classes_6f9b6020b0cfcefcd64b92891d2e16257fb63965.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\colml\.android\build-cache\8746584f20520429fd89d991baa73a430c00ccfa\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\pre-dexed\debug\classes_4b7a23db697f0635830009ad972bae2016691281.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\colml\.android\build-cache\f274ee6ccccdc6f77ee0e58968b4a729e89fbbe9\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
+        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\pre-dexed\debug\classes_2698c1ea4f7d83f356f9dfc91d36fce151472f9c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\colml\.android\build-cache\564dc9c52b3de6ffce309efd5f8b140704c212b3\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
+        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\pre-dexed\debug\classes_ad00ccd7ca84fb90405094bae9215c3a489ea29b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\colml\.android\build-cache\f84836f7c4433fc35826d195d4bce539f6d32976\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
+        <dex dex="C:\Users\colml\AndroidStudioProjects\ULAlarmClock\app\build\intermediates\pre-dexed\debug\classes_bd3b9837a7870f6173080ad22ab6f98122b505fd.jar" />
     </item>
 
 </items>

@@ -2,233 +2,233 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="legear.colm.ulalarmclock.CreateAlarm">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
-    </RelativeLayout>
-
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:fillViewport="true"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp">
 
-            <legear.colm.ulalarmclock.CustomTimePicker
-                android:id="@+id/timePicker2"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:headerBackground="@color/colorPrimary"
-                android:numbersSelectorColor="@color/colorPrimary"
-                tools:layout_conversion_absoluteHeight="336dp"
-                tools:layout_conversion_absoluteWidth="384dp"
-                tools:layout_conversion_absoluteX="0dp"
-                tools:layout_conversion_absoluteY="-1dp"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="8dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/checkBoxMon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/timePicker2"
-                    android:layout_weight="1"
-                    android:text="Mon"
-                    android:textSize="11sp"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="-35dp" />
-
-                <CheckBox
-                    android:id="@+id/checkBoxTue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/checkBoxWed"
-                    android:layout_alignBottom="@+id/checkBoxWed"
-                    android:layout_toEndOf="@+id/checkBoxMon"
-                    android:layout_weight="1"
-                    android:text="Tue"
-                    android:textSize="11sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBoxWed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/timePicker2"
-                    android:layout_toEndOf="@+id/checkBoxTue"
-                    android:layout_weight="1"
-                    android:text="Wed"
-                    android:textSize="11sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBoxThu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/checkBoxWed"
-                    android:layout_alignBottom="@+id/checkBoxWed"
-                    android:layout_toEndOf="@+id/checkBoxWed"
-                    android:layout_weight="1"
-                    android:text="Thu"
-                    android:textSize="11sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBoxFri"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/timePicker2"
-                    android:layout_toEndOf="@+id/checkBoxThu"
-                    android:layout_weight="1"
-                    android:text="Fri"
-                    android:textSize="11sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBoxSat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/timePicker2"
-                    android:layout_toEndOf="@+id/checkBoxFri"
-                    android:layout_weight="1"
-                    android:text="Sat"
-                    android:textSize="11sp" />
-
-                <CheckBox
-                    android:id="@+id/checkBoxSun"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/checkBoxSat"
-                    android:layout_alignBottom="@+id/checkBoxSat"
-                    android:layout_toEndOf="@+id/checkBoxSat"
-                    android:layout_weight="1"
-                    android:text="Sun"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView3"
+                <legear.colm.ulalarmclock.CustomTimePicker
+                    android:id="@+id/timePicker2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_below="@+id/checkBoxMon"
-                    android:layout_marginTop="18dp"
-                    android:text="Puzzles:"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp" />
+                    android:layout_alignParentTop="true"
+                    android:headerBackground="@color/colorPrimary"
+                    android:numbersSelectorColor="@color/colorPrimary"
+                    tools:layout_conversion_absoluteHeight="336dp"
+                    tools:layout_conversion_absoluteWidth="384dp"
+                    tools:layout_conversion_absoluteX="0dp"
+                    tools:layout_conversion_absoluteY="-1dp"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="8dp" />
 
-                <TableLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                    <TableRow
+                    <CheckBox
+                        android:id="@+id/checkBoxMon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/timePicker2"
+                        android:layout_weight="1"
+                        android:text="Mon"
+                        android:textSize="11sp"
+                        tools:layout_editor_absoluteX="16dp"
+                        tools:layout_editor_absoluteY="-35dp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxTue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/checkBoxWed"
+                        android:layout_alignBottom="@+id/checkBoxWed"
+                        android:layout_toEndOf="@+id/checkBoxMon"
+                        android:layout_weight="1"
+                        android:text="Tue"
+                        android:textSize="11sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxWed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/timePicker2"
+                        android:layout_toEndOf="@+id/checkBoxTue"
+                        android:layout_weight="1"
+                        android:text="Wed"
+                        android:textSize="11sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxThu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/checkBoxWed"
+                        android:layout_alignBottom="@+id/checkBoxWed"
+                        android:layout_toEndOf="@+id/checkBoxWed"
+                        android:layout_weight="1"
+                        android:text="Thu"
+                        android:textSize="11sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFri"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/timePicker2"
+                        android:layout_toEndOf="@+id/checkBoxThu"
+                        android:layout_weight="1"
+                        android:text="Fri"
+                        android:textSize="11sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxSat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/timePicker2"
+                        android:layout_toEndOf="@+id/checkBoxFri"
+                        android:layout_weight="1"
+                        android:text="Sat"
+                        android:textSize="11sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxSun"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/checkBoxSat"
+                        android:layout_alignBottom="@+id/checkBoxSat"
+                        android:layout_toEndOf="@+id/checkBoxSat"
+                        android:layout_weight="1"
+                        android:text="Sun"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/header"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/checkBoxMon"
+                        android:layout_marginTop="18dp"
+                        android:text="Puzzles:"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <TableLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <CheckBox
-                            android:id="@+id/checkBoxMathPuzzle"
+                        <TableRow
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_below="@+id/textView3"
-                            android:layout_weight="1"
-                            android:text="Maths" />
+                            android:layout_height="match_parent">
 
-                        <CheckBox
-                            android:id="@+id/checkBoxMemoryPuzzle"
+                            <CheckBox
+                                android:id="@+id/checkBoxMathPuzzle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_below="@+id/textView3"
+                                android:layout_weight="1"
+                                android:text="Maths" />
+
+                            <CheckBox
+                                android:id="@+id/checkBoxMemoryPuzzle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@+id/checkBoxMathPuzzle"
+                                android:layout_toEndOf="@+id/checkBoxMathPuzzle"
+                                android:layout_weight="1"
+                                android:text="Memory Game" />
+                        </TableRow>
+
+                        <TableRow
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignTop="@+id/checkBoxMathPuzzle"
-                            android:layout_toEndOf="@+id/checkBoxMathPuzzle"
-                            android:layout_weight="1"
-                            android:text="Memory Game" />
-                    </TableRow>
+                            android:layout_height="match_parent">
 
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                            <CheckBox
+                                android:id="@+id/checkBoxPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Re-type Password" />
 
-                        <CheckBox
-                            android:id="@+id/checkBoxPassword"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Re-type Password" />
+                            <CheckBox
+                                android:id="@+id/checkBoxNotification"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="'Are you awake?' Notification" />
+                        </TableRow>
 
-                        <CheckBox
-                            android:id="@+id/checkBoxNotification"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="'Are you awake?' Notification" />
-                    </TableRow>
+                    </TableLayout>
 
-                </TableLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewRingtone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:text="Ringtone:"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/textViewRingtoneName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textViewChangeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:paddingRight="10dp"
+                        android:text="Change"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@android:color/black" />
+
+                </LinearLayout>
 
             </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textViewRingtone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:text="Ringtone:"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textViewRingtoneName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/textViewChangeButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:paddingRight="10dp"
-                    android:text="Change"
-                    android:textAlignment="viewEnd"
-                    android:textColor="@android:color/black" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
