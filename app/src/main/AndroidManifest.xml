@@ -40,7 +40,9 @@
         <activity android:name=".MathPuzzle"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"/>
-        <activity android:name=".AlarmReceivedActivity" />
+        <activity android:name=".AlarmReceivedActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
         <activity android:name=".MemoryPuzzle"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"/>
